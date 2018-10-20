@@ -1,0 +1,158 @@
+package br.edu.ifcvideira.controllers.views;
+
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import br.edu.ifcvideira.beans.Usuario;
+
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+public class MenuView extends JFrame {
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField tfusu;
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MenuView frame = new MenuView();
+					frame.setVisible(true);
+			
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+
+	public MenuView() {
+		setTitle("Menu");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 593, 419);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JButton btnClientes = new JButton("Clientes");
+		btnClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ClienteView frame = new ClienteView();
+				frame.setVisible(true);
+				dispose();
+			
+				
+				
+			}
+		});
+		btnClientes.setBounds(78, 110, 133, 36);
+		contentPane.add(btnClientes);
+		
+		JButton btnProdutos = new JButton("Produtos");
+		btnProdutos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+			
+				ProdutoView frame = new ProdutoView();
+				frame.setVisible(true);
+				dispose();
+			}
+
+		});
+		btnProdutos.setBounds(78, 157, 133, 36);
+		contentPane.add(btnProdutos);
+		
+		JButton btnVender = new JButton("Vender");
+		btnVender.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnVender.setBounds(267, 110, 133, 36);
+		contentPane.add(btnVender);
+		
+		JButton btnUsuraios = new JButton("Usu\u00E1rios");
+		btnUsuraios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UsuarioView frame = new UsuarioView();
+				frame.setVisible(true);
+				dispose();
+	
+			}
+		});
+		btnUsuraios.setBounds(78, 63, 133, 36);
+		contentPane.add(btnUsuraios);
+		
+		JButton btnOrcamento = new JButton("Or\u00E7amento");
+		btnOrcamento.setBounds(267, 204, 133, 36);
+		contentPane.add(btnOrcamento);
+		JButton btnNewButton = new JButton("Deslogar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LoginView frame = new LoginView();
+				frame.setVisible(true);
+				dispose();
+			
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnNewButton.setBounds(471, 352, 96, 21);
+		contentPane.add(btnNewButton);
+		
+		JButton btnAquisicoes = new JButton("Aquisi\u00E7\u00F5es");
+		btnAquisicoes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Usuario u = new Usuario();
+		        u.setLogin(tfusu.getText());
+				AquisicoesView frame = new AquisicoesView();
+				frame.ExportarDados(u);
+				frame.setVisible(true);
+				dispose();
+				
+						}
+		});
+		btnAquisicoes.setBounds(267, 63, 133, 36);
+		contentPane.add(btnAquisicoes);
+		
+		JButton btnFornecedores = new JButton("Fornecedores");
+		btnFornecedores.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				FornecedorView frame = new FornecedorView();
+				frame.setVisible(true);
+				dispose();
+				
+			}
+		});
+		btnFornecedores.setBounds(78, 204, 133, 36);
+		contentPane.add(btnFornecedores);
+		
+		JButton btnConta = new JButton("Pagamento Conta");
+		btnConta.setBounds(267, 157, 133, 36);
+		contentPane.add(btnConta);
+		
+		tfusu = new JTextField();
+		tfusu.setEditable(false);
+		tfusu.setBounds(337, 353, 124, 20);
+		contentPane.add(tfusu);
+		tfusu.setColumns(10);
+		
+
+	}
+	
+	public void ExportarDados (Usuario u) {
+		tfusu.setText("Usuário: "+u.getNome());
+		
+		
+	}
+}

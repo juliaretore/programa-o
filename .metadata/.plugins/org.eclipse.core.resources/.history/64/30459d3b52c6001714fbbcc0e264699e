@@ -1,0 +1,47 @@
+package br.edu.ifcvideirabeans;
+
+public class ProdutosVenda {
+	
+	private int id_produtos_venda;
+	private Produto id_produto_produtos_venda;
+	private Venda id_venda_produtos_venda;
+	private double valor_unitario_produtos_venda;
+	
+	public ProdutosVenda() {
+		
+	}
+
+	public int getId_produtos_venda() {
+		return id_produtos_venda;
+	}
+
+	public void setId_produtos_venda(int id_produtos_venda) {
+		this.id_produtos_venda = id_produtos_venda;
+	}
+
+	public Produto getId_produto_produtos_venda() {
+		return id_produto_produtos_venda;
+	}
+
+	public void setId_produto_produtos_venda(Produto id_produto_produtos_venda) {
+		this.id_produto_produtos_venda = id_produto_produtos_venda;
+	}
+
+	public Venda getId_venda_produtos_venda() {
+		return id_venda_produtos_venda;
+	}
+
+	public void setId_venda_produtos_venda(Venda id_venda_produtos_venda) {
+		this.id_venda_produtos_venda = id_venda_produtos_venda;
+	}
+
+	public double getValor_unitario_produtos_venda() {
+		return valor_unitario_produtos_venda;
+	}
+
+	public void setValor_unitario_produtos_venda(double valor_unitario_produtos_venda) {
+		this.valor_unitario_produtos_venda = valor_unitario_produtos_venda;
+	}
+	
+
+}

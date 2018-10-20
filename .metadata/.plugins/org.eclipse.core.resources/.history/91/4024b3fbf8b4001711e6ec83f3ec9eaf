@@ -1,0 +1,5 @@
+package br.edu.ifcvideira.DAOs;
+
+public class MenuDao {
+
+}

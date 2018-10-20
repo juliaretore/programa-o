@@ -1,0 +1,54 @@
+package br.edu.ifcvideira.DAOs;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+
+import javax.swing.JOptionPane;
+
+import br.edu.ifcvideira.controllers.views.OrcamentoView;
+import br.edu.ifcvideira.utils.Conexao;
+
+public class OrcamentoDao {
+	
+
+	public void Gastos() throws SQLException, Exception {
+		try {
+			String sql = "SELECT id_aquisicao, SUM(valor_unitario_aquisicao*quantidade_aquisicao) FROM aquisicao_historico  GROUP BY id_aquisicao";
+			java.sql.Statement state = Conexao.getInstance().createStatement();
+			ResultSet rs = state.executeQuery(sql);
+
+			while (rs.next()) {
+				Object[] linha = { rs.getInt(1), rs.getDouble(2) };
+				OrcamentoView.gastos.add(linha);
+			}
+			state.close();
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+
+	
+	}
+	
+	public void Ganhos() throws SQLException, Exception {
+		
+		try {
+			String sql = "SELECT id_venda_produtos_venda, SUM(valor_unitario_produtos_venda) FROM produtos_venda  WHERE id_venda_produtos_venda IN (SELECT id_venda FROM vendas WHERE situacao_venda='Pago') GROUP BY id_venda_produtos_venda";
+			java.sql.Statement state = Conexao.getInstance().createStatement();
+			ResultSet rs = state.executeQuery(sql);
+
+			while (rs.next()) {
+				Object[] linha = { rs.getInt(1), rs.getDouble(2) };
+				OrcamentoView.ganhos.add(linha);
+			}
+			state.close();
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+
+	
+	}
+
+}

@@ -1,0 +1,93 @@
+package br.edu.ifcvideira.DAOs;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
+import br.edu.ifcvideira.beans.Produto;
+import br.edu.ifcvideira.beans.Usuario;
+import br.edu.ifcvideira.utils.Conexao;
+
+
+public class LoginDao {
+	Usuario u= new Usuario();
+
+	
+	public List<String> validarUsuario() throws SQLException{
+		List<String> login = new ArrayList<String>();
+		try {
+			String sql = "SELECT login_usuario FROM usuarios";
+			java.sql.Statement state = Conexao.conectar().createStatement();
+			ResultSet rs = state.executeQuery(sql);
+			
+			while (rs.next()){
+				login.add(rs.getString(1));
+			}
+			state.close();			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "erro no sistema");
+		}
+		return login;
+	}
+	
+	
+	public List<String> validarSenha(String usuario) throws SQLException{
+		List<String> senha = new ArrayList<String>();
+		try {
+			String sql = "SELECT  senha_usuario FROM usuarios WHERE login_usuario='"+usuario+"'";
+			java.sql.Statement state = Conexao.conectar().createStatement();
+			ResultSet rs = state.executeQuery(sql);		
+			while (rs.next()){
+				senha.add(rs.getString(1));
+				
+			}
+			state.close();	
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "erro");
+		}
+		return senha;
+	}
+	
+	
+	
+	
+	public void GravarDados(String login) throws SQLException, Exception{
+		try{
+			String sql = "SELECT * FROM usuarios WHERE login_usuario='"+login+"'";
+			java.sql.PreparedStatement sqlPrep = Conexao.conectar().prepareStatement(sql);
+			int contador = 1;
+			sqlPrep.setInt(contador++, u.getCodigo());
+			sqlPrep.setString(contador++, u.getNome());
+			sqlPrep.setString(contador++, u.getNome());
+			sqlPrep.setString(contador++, u.getCpf());
+			sqlPrep.setString(contador++, u.getRg());
+			sqlPrep.setString(contador++, u.getTelefone());
+			sqlPrep.setString(contador++, u.getCelular());
+			sqlPrep.setString(contador++, u.getLogin());
+			sqlPrep.setString(contador++, u.getSenha());
+			sqlPrep.setTimestamp(contador++, u.getDatacadastro());
+
+
+			
+			sqlPrep.execute();
+			
+		} catch(SQLException e) {
+			JOptionPane.showMessageDialog(null, "a");
+			
+		} catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "b");
+		}
+	}
+	
+	
+	
+	
+	
+	
+
+
+
+	
+
+}

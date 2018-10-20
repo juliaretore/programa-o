@@ -1,0 +1,74 @@
+package br.edu.ifcvideira.beans;
+
+import java.sql.Timestamp;
+
+public class Aquisicao {
+
+	
+	
+	private int codigoaquisicao;
+	private int quantidade;
+	private double vlrunitarioaquisicao;
+	private Timestamp datacadastro;
+	private Fornecedor fornecedor;
+	private Produto produto;
+	private Usuario usuario;
+	
+	
+	
+	
+	public Produto getProduto() {
+		return produto;
+	}
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+	
+	
+	
+	
+	
+	
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+	public Usuario getusuario() {
+		return usuario;
+	}
+	public void setusuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	public Timestamp getDatacadastro() {
+		return datacadastro;
+	}
+	public void setDatacadastro(Timestamp datacadastro) {
+		this.datacadastro = datacadastro;
+	}
+
+	public int getCodigoaquisicao() {
+		return codigoaquisicao;
+	}
+	public void setCodigoaquisicao(int codigoaquisicao) {
+		this.codigoaquisicao = codigoaquisicao;
+	}
+	public int getQuantidade() {
+		return quantidade;
+	}
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+	public double getVlrunitarioaquisicao() {
+		return vlrunitarioaquisicao;
+	}
+	public void setVlrunitarioaquisicao(double vlrunitarioaquisicao) {
+		this.vlrunitarioaquisicao = vlrunitarioaquisicao;
+	}
+	
+	
+	
+	
+
+}

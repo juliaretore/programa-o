@@ -1,0 +1,143 @@
+ package br.edu.ifcvideira.controllers.views;
+
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import br.edu.ifcvideira.DAOs.LoginDao;
+import br.edu.ifcvideira.beans.Usuario;
+import javax.swing.JTextField;
+import javax.swing.Timer;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
+
+public class LoginView extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField tflogin;
+	
+	
+	LoginDao ld = new LoginDao ();
+	Usuario u = new Usuario();
+
+	
+	private JPasswordField tfsenha;
+	private JButton btnSair;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LoginView frame = new LoginView();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	
+
+	/**
+	 * Create the frame.
+	 */
+	public LoginView() {
+		setTitle("Login");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		tflogin = new JTextField();
+		tflogin.setBounds(194, 64, 86, 20);
+		contentPane.add(tflogin);
+		tflogin.setColumns(10);
+		
+		JButton btlogin = new JButton("logar");
+		btlogin.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
+			public void actionPerformed(ActionEvent arg0) {
+						
+							
+								try {
+									if(ld.validarUsuario().contains(tflogin.getText())) {
+
+		 								if(ld.validarSenha(tflogin.getText()).contains(tfsenha.getText())) {
+		 							u.setLogin(tflogin.getText());
+		 							JOptionPane meuJOPane = new JOptionPane("Bem vindo " +u.getLogin()+ "!");
+		 							
+		 							
+		 							
+		 							final JDialog dialog = meuJOPane.createDialog( "Carregando...");
+							        dialog.setModal(true);
+							        Timer timer = new Timer(600, new ActionListener() {  
+							            public void actionPerformed(ActionEvent ev) {  
+							                dialog.dispose();  
+							            }  
+							        });  
+							        timer.start();
+							        dialog.setVisible(true);
+							        timer.stop();
+							        
+									MenuView frame = new MenuView();
+									frame.setVisible(true);
+									dispose();
+									
+										}else {
+											JOptionPane.showMessageDialog(null, "Login incorreto");
+										}
+									}else {
+										JOptionPane.showMessageDialog(null, "Login incorreto");
+									}
+								} catch (SQLException e) {					
+								JOptionPane.showMessageDialog(null, "Login incorreto");
+								} catch (Exception e) {
+									JOptionPane.showMessageDialog(null, "eee");
+								}
+							
+							
+				
+				
+			}
+		});
+		btlogin.setBounds(135, 164, 89, 23);
+		contentPane.add(btlogin);
+		
+		JButton btnReset = new JButton("limpar");
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				tflogin.setText(null);
+				tfsenha.setText(null);
+
+				
+			}
+		});
+		btnReset.setBounds(246, 164, 89, 23);
+		contentPane.add(btnReset);
+		
+		tfsenha = new JPasswordField();
+		tfsenha.setBounds(191, 118, 89, 20);
+		contentPane.add(tfsenha);
+		
+		btnSair = new JButton("sair");
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+		
+			}
+		});
+		btnSair.setBounds(191, 202, 89, 23);
+		contentPane.add(btnSair);
+	}
+}

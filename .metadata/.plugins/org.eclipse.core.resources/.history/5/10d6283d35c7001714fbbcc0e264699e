@@ -1,0 +1,130 @@
+package br.edu.ifcvideira.controllers.views;
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Toolkit;
+
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+
+public class TrocoView extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	public static JTextField textFieldValorTotal;
+	private JTextField textFieldTroco;
+	private JTextField textFieldDinheiro;
+	private JLabel lblTroco;
+	private JLabel lblVenda;
+	public static JTextField textFieldVenda;
+	private JLabel lblDinheiro;
+	private JButton btnSair;
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TrocoView frame = new TrocoView();
+					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+
+	public TrocoView() {
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Arq_Alcides_Vania\\Desktop\\programa\u00E7\u00E3o\\pi\\src\\img\\procurar.png"));
+
+		ImageIcon img = new ImageIcon (lblNewLabel.getIcon().toString());  
+		lblNewLabel.setIcon(img);
+        img.setImage(img.getImage().getScaledInstance(450, 420, 100));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
+
+		setTitle("Calcular troco");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 415, 450);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		textFieldValorTotal = new JTextField();
+		textFieldValorTotal.setEditable(false);
+		textFieldValorTotal.setBounds(247, 117, 106, 20);
+		contentPane.add(textFieldValorTotal);
+		textFieldValorTotal.setColumns(10);
+		
+		JLabel lblValorTotalDa = new JLabel("Valor total da compra:");
+		lblValorTotalDa.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		lblValorTotalDa.setBounds(211, 82, 178, 20);
+		contentPane.add(lblValorTotalDa);
+		
+		textFieldTroco = new JTextField();
+		textFieldTroco.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldTroco.setFont(new Font("Tahoma", Font.BOLD, 16));
+		textFieldTroco.setBounds(10, 296, 379, 47);
+		contentPane.add(textFieldTroco);
+		textFieldTroco.setColumns(10);
+		
+		textFieldDinheiro = new JTextField();
+		textFieldDinheiro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				double troco= (Double.parseDouble(textFieldDinheiro.getText())-Double.parseDouble(textFieldValorTotal.getText()));
+				textFieldTroco.setText(""+troco);
+			}
+		});
+		textFieldDinheiro.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldDinheiro.setFont(new Font("Tahoma", Font.BOLD, 16));
+		textFieldDinheiro.setColumns(10);
+		textFieldDinheiro.setBounds(10, 207, 379, 47);
+		contentPane.add(textFieldDinheiro);
+		
+		lblTroco = new JLabel("TROCO:");
+		lblTroco.setFont(new Font("Segoe UI Symbol", Font.BOLD, 20));
+		lblTroco.setBounds(164, 265, 116, 31);
+		contentPane.add(lblTroco);
+		
+		lblVenda = new JLabel("Venda n\u00FAmero:");
+		lblVenda.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		lblVenda.setBounds(10, 88, 144, 14);
+		contentPane.add(lblVenda);
+		
+		textFieldVenda = new JTextField();
+		textFieldVenda.setEditable(false);
+		textFieldVenda.setColumns(10);
+		textFieldVenda.setBounds(35, 117, 55, 20);
+		contentPane.add(textFieldVenda);
+		
+		lblDinheiro = new JLabel("DINHEIRO:");
+		lblDinheiro.setFont(new Font("Segoe UI Symbol", Font.BOLD, 20));
+		lblDinheiro.setBounds(150, 167, 116, 31);
+		contentPane.add(lblDinheiro);
+		
+		btnSair = new JButton("Sair");
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				dispose();
+			}
+		});
+		btnSair.setBounds(164, 354, 89, 23);
+		contentPane.add(btnSair);
+		
+		
+		lblNewLabel.setBounds(0, 0, 399, 411);
+		contentPane.add(lblNewLabel);
+		
+		
+	}
+}

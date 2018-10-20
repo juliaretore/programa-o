@@ -1,0 +1,81 @@
+package br.edu.ifcvideira.beans;
+
+import java.sql.Timestamp;
+
+public class Usuario {
+	private int codigo ;
+	private String nome;
+	private String cpf;
+	private String telefone;
+	private String celular;
+	private String rg;
+	private String senha;
+	private String login;
+	private Timestamp datacadastro;
+	
+	public Usuario(){
+		
+	}
+	
+	
+	
+	public Timestamp getDatacadastro() {
+		return datacadastro;
+	}
+	public void setDatacadastro(Timestamp datacadastro) {
+		this.datacadastro = datacadastro;
+	}
+	public String getSenha() {
+		return senha;
+	}
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	public String getLogin() {
+		return login;
+	}
+	public void setLogin(String login) {
+		this.login = login;
+	}
+	public int getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getCpf() {
+		return cpf;
+	}
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	public String getTelefone() {
+		return telefone;
+	}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+	public String getCelular() {
+		return celular;
+	}
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+	public String getRg() {
+		return rg;
+	}
+	public void setRg(String rg) {
+		this.rg = rg;
+	}
+	 
+	
+	
+	
+
+}

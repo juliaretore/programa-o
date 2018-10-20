@@ -1,0 +1,25 @@
+package br.transbus.classes;
+
+public class Reserva {
+	private String nomeOnibus;
+	
+	public Reserva(String nomeOnibus) {
+	super();
+	this.nomeOnibus = nomeOnibus;
+	}
+
+	public String getNomeOnibus() {
+		return nomeOnibus;
+	}
+
+	public void setNumOnibus(String nomeOnibus) {
+		this.nomeOnibus = nomeOnibus;
+	}
+
+
+	public void reservaOnibus(String nome) {
+	System.out.println("Vaga reservada no onibus de numero:" +nomeOnibus);
+	System.out.println("para"+nome);
+	}
+
+}

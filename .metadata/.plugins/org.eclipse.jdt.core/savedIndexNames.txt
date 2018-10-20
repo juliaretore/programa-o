@@ -1,0 +1,3 @@
+INDEX VERSION 1.130+C:\Users\Arq_Alcides_Vania\Desktop\Trabalhos\Técnico\programação\.metadata\.plugins\org.eclipse.jdt.core
+2176233164.index
+1519549194.index

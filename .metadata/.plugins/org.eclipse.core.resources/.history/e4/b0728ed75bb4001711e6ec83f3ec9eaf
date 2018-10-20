@@ -1,0 +1,53 @@
+package br.edu.ifcvideira.beans;
+
+public class Aquisicao {
+	Produto p = new Produto();
+	Usuario u = new Usuario();
+	Fornecedor f = new Fornecedor ();
+	
+	
+	private int codigoaquisicao;
+	private int quantidade;
+	private double vlrunitarioaquisicao;
+	public Produto getP() {
+		return p;
+	}
+	public void setP(Produto p) {
+		this.p = p;
+	}
+	public Usuario getU() {
+		return u;
+	}
+	public void setU(Usuario u) {
+		this.u = u;
+	}
+	public Fornecedor getF() {
+		return f;
+	}
+	public void setF(Fornecedor f) {
+		this.f = f;
+	}
+	public int getCodigoaquisicao() {
+		return codigoaquisicao;
+	}
+	public void setCodigoaquisicao(int codigoaquisicao) {
+		this.codigoaquisicao = codigoaquisicao;
+	}
+	public int getQuantidade() {
+		return quantidade;
+	}
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+	public double getVlrunitarioaquisicao() {
+		return vlrunitarioaquisicao;
+	}
+	public void setVlrunitarioaquisicao(double vlrunitarioaquisicao) {
+		this.vlrunitarioaquisicao = vlrunitarioaquisicao;
+	}
+	
+	
+	
+	
+
+}

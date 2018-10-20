@@ -1,0 +1,368 @@
+package br.edu.ifcvideira.controllers.views;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import br.edu.ifcvideira.DAOs.ProdutoDao;
+import br.edu.ifcvideira.beans.Produtos;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+
+public class ProdutoView extends JFrame {
+	
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField textNome;
+	private JTextField textValorUnitario;
+	private JTextField textPNome;
+	private JTextField textPCodigo;
+	private JTable ProdutosCadastrados;
+
+	private List<Object> produto = new ArrayList<Object>();
+	
+	Produtos p = new Produtos();
+	ProdutoDao pDao = new ProdutoDao();
+	
+	java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
+	private JTextField textCodigo;
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ProdutoView frame = new ProdutoView();
+					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+			}
+		});
+	}
+	
+
+	public ProdutoView() {
+		addWindowListener(new WindowAdapter() {
+			public void windowOpened(WindowEvent arg0) {
+				atualizarTabela();
+				limpar();
+			}
+		});
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Arq_Alcides_Vania\\Desktop\\programa\u00E7\u00E3o\\pi\\src\\img\\base.png"));
+		
+		ImageIcon img = new ImageIcon (lblNewLabel.getIcon().toString());  
+		lblNewLabel.setIcon(img);
+        img.setImage(img.getImage().getScaledInstance(500, 680, 100));
+		
+		
+		setTitle("Cadastro Produto");
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100,  500, 700);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel label_1 = new JLabel("Nome:");
+		label_1.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		label_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_1.setBounds(70, 149, 59, 20);
+		contentPane.add(label_1);
+		
+		textNome = new JTextField();
+		textNome.setColumns(10);
+		textNome.setBounds(141, 152, 301, 20);
+		contentPane.add(textNome);
+		
+		JLabel Celular = new JLabel("Valor unit\u00E1rio:");
+		Celular.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		Celular.setHorizontalAlignment(SwingConstants.RIGHT);
+		Celular.setBounds(-2, 215, 133, 20);
+		contentPane.add(Celular);
+		
+		textValorUnitario = new JTextField();
+		textValorUnitario.setColumns(10);
+		textValorUnitario.setBounds(141, 218, 173, 20);
+		contentPane.add(textValorUnitario);
+		
+		JButton alterar = new JButton("Alterar");
+		alterar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (ProdutosCadastrados.getSelectedRow() != -1){
+					try {
+
+						p.setnomeProduto(textNome.getText());
+						p.setvalorUnitarioProduto(Double.parseDouble(textValorUnitario.getText()));
+						p.setidProduto(Integer.parseInt(textCodigo.getText()));
+						
+						pDao.AlterarProduto(p);
+						
+		
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, e1.getMessage());
+					}
+					atualizarTabela();
+				}
+				
+				else{
+					JOptionPane.showMessageDialog(null, "Nenhuma linha selecionada");
+				}
+			}
+		});
+		alterar.setBackground(SystemColor.controlHighlight);
+		alterar.setBounds(324, 247, 118, 21);
+		contentPane.add(alterar);
+		
+		JButton cadastrar = new JButton("Cadastrar");
+		cadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					p.setnomeProduto(textNome.getText());
+					p.setvalorUnitarioProduto(Double.parseDouble(textValorUnitario.getText()));
+					p.setidProduto(Integer.parseInt(textCodigo.getText()));
+					
+					pDao.CadastrarProduto(p);
+					
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+				atualizarTabela();
+				limpar();
+			}
+		});
+		cadastrar.setBackground(SystemColor.controlHighlight);
+		cadastrar.setBounds(324, 218, 118, 21);
+		contentPane.add(cadastrar);
+		
+		JButton limpar = new JButton("Limpar");
+		limpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpar();
+			}
+		});
+		limpar.setBackground(SystemColor.controlHighlight);
+		limpar.setBounds(324, 186, 118, 21);
+		contentPane.add(limpar);
+		
+		JButton excluir = new JButton("Excluir");
+		excluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (ProdutosCadastrados.getSelectedRow() != -1){
+					Object[] options3 = {"Excluir", "Cancelar"};
+					if(JOptionPane.showOptionDialog(null, "Tem certeza que deseja excluir o registro:\n>   " 
+							+ ProdutosCadastrados.getValueAt(ProdutosCadastrados.getSelectedRow(), 0) + "   -   "
+							+ ProdutosCadastrados.getValueAt(ProdutosCadastrados.getSelectedRow(), 1), null,
+							JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options3, options3[0]) == 0){
+						try {
+						
+							p.setidProduto(Integer.parseInt(textCodigo.getText()));
+							
+							pDao.DeletarProduto(p);
+							
+						
+							atualizarTabela();
+						} catch (Exception e1) {
+							JOptionPane.showMessageDialog(null, e1.getMessage());
+						}
+					}
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "Nenhuma linha selecionada");
+				}
+			}
+		});
+		excluir.setBackground(SystemColor.controlHighlight);
+		excluir.setBounds(324, 279, 118, 21);
+		contentPane.add(excluir);
+		
+		JLabel label_5 = new JLabel("Busca:");
+		label_5.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		label_5.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_5.setBounds(220, 314, 80, 20);
+		contentPane.add(label_5);
+		
+		JLabel label_8 = new JLabel("Produtos Cadastrados:");
+		label_8.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		label_8.setBounds(40, 420, 193, 20);
+		contentPane.add(label_8);
+		
+		JButton sair = new JButton("Sair");
+		sair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sair();
+			}
+		});
+		sair.setBackground(SystemColor.controlHighlight);
+		sair.setBounds(182, 633, 118, 20);
+		contentPane.add(sair);
+			
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(40, 451, 415, 171);
+		contentPane.add(scrollPane);
+		
+		ProdutosCadastrados = new JTable();
+		ProdutosCadastrados.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent arg0) {
+				setCamposFromTabela();
+			}
+		});
+		scrollPane.setViewportView(ProdutosCadastrados);
+		ProdutosCadastrados.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"C\u00F3digo", "Nome", "Valor Unit\u00E1rio"
+			}
+		));
+		
+		JLabel lblCodigo = new JLabel("Codigo:");
+		lblCodigo.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		lblCodigo.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCodigo.setBounds(70, 184, 59, 20);
+		contentPane.add(lblCodigo);
+		
+		textCodigo = new JTextField();
+		textCodigo.setEditable(false);
+		textCodigo.setColumns(10);
+		textCodigo.setBounds(141, 183, 173, 20);
+		contentPane.add(textCodigo);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setForeground(Color.LIGHT_GRAY);
+		separator_1.setBounds(71, 311, 384, 2);
+		contentPane.add(separator_1);
+		
+		JLabel label_6 = new JLabel("C\u00F3digo:");
+		label_6.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		label_6.setBounds(22, 345, 72, 20);
+		contentPane.add(label_6);
+		label_6.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		textPCodigo = new JTextField();
+		textPCodigo.setBounds(104, 345, 315, 20);
+		contentPane.add(textPCodigo);
+		textPCodigo.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent e) {
+				
+				TableRowSorter<TableModel> filtro = null;  
+				DefaultTableModel model = (DefaultTableModel) ProdutosCadastrados.getModel();  
+				filtro = new TableRowSorter<TableModel>(model);  
+				ProdutosCadastrados.setRowSorter(filtro);
+				
+				if (textPCodigo.getText().length() == 0) {
+					filtro.setRowFilter(null);
+				} else {  
+					filtro.setRowFilter(RowFilter.regexFilter(textPCodigo.getText(), 0));  
+				}  
+			}
+		});
+		textPCodigo.setColumns(10);
+		
+		textPNome = new JTextField();
+		textPNome.setBounds(104, 376, 315, 20);
+		contentPane.add(textPNome);
+		textPNome.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				
+				TableRowSorter<TableModel> filtro = null;  
+				DefaultTableModel model = (DefaultTableModel) ProdutosCadastrados.getModel();  
+				filtro = new TableRowSorter<TableModel>(model);  
+				ProdutosCadastrados.setRowSorter(filtro); 
+				
+				if (textPNome.getText().length() == 0) {
+					filtro.setRowFilter(null);
+				} else {  
+					filtro.setRowFilter(RowFilter.regexFilter("(?i)" + textPNome.getText(), 1));  
+				}  
+				
+			}
+		});
+		textPNome.setColumns(10);
+		
+		JLabel label_7 = new JLabel("Nome:");
+		label_7.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		label_7.setBounds(22, 376, 72, 20);
+		contentPane.add(label_7);
+		label_7.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		JSeparator separator = new JSeparator();
+		separator.setForeground(Color.LIGHT_GRAY);
+		separator.setBounds(58, 407, 384, 2);
+		contentPane.add(separator);
+		
+		
+		lblNewLabel.setBounds(-5, 0, 499, 671);
+		contentPane.add(lblNewLabel);
+	}
+
+	public void sair() {
+
+		if(MenuView.sairr==true) {
+			MenuView frame = new MenuView();
+			frame.setVisible(true);
+			dispose();
+			}else {
+				dispose();
+			}
+		}
+		
+		
+	public void setCamposFromTabela() {
+		textCodigo.setText(String.valueOf(ProdutosCadastrados.getValueAt(ProdutosCadastrados.getSelectedRow(), 0)));
+		textNome.setText(String.valueOf(ProdutosCadastrados.getValueAt(ProdutosCadastrados.getSelectedRow(), 1)));	
+		textValorUnitario.setText(String.valueOf(ProdutosCadastrados.getValueAt(ProdutosCadastrados.getSelectedRow(), 2)));
+	
+	}
+
+	public void limpar() {
+		
+		textNome.setText(null);
+		textValorUnitario.setText(null);
+	
+		try {
+			textCodigo.setText(String.valueOf(pDao.RetornarProximoCodigoProduto()));
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+
+	public void atualizarTabela() {
+		try {
+			produto = pDao.BuscarTodos();
+			DefaultTableModel model = (DefaultTableModel) ProdutosCadastrados.getModel();
+			model.setNumRows(0);
+		for (int x=0; x!=produto.size(); x++)
+			{
+				model.addRow((Object[]) produto.get(x));
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+}

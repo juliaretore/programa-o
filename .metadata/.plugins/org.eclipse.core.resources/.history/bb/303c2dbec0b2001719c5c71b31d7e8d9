@@ -1,0 +1,29 @@
+package br.edu.ifcvideira.beans;
+
+public class Produto {
+	private int idproduto;
+	private String nomeproduto;
+	private double vlrunitarioproduto;
+	
+	public int getidproduto() {
+		return idproduto;
+	}
+	public void setidproduto(int idproduto) {
+		this.idproduto = idproduto;
+	}
+	public String getnomeproduto() {
+		return nomeproduto;
+	}
+	public void setnomeproduto(String nomeproduto) {
+		this.nomeproduto = nomeproduto;
+	}
+	public double getvlrunitarioproduto() {
+		return vlrunitarioproduto;
+	}
+	public void setvlrunitarioproduto(double vlrunitarioproduto) {
+		this.vlrunitarioproduto = vlrunitarioproduto;
+	}
+	
+	
+
+}

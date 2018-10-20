@@ -1,0 +1,17 @@
+1508192655329	Rename package 'beans'
+1508192665302	Rename package 'controllers.views'
+1508192678008	Rename package 'DAOs'
+1508192687836	Rename package 'utils'
+1508369149055	Delete elements
+1508369221011	Rename package 'beans'
+1508369229758	Rename package 'controllers.views'
+1508369235780	Rename package 'DAOs'
+1508369244076	Rename package 'utils'
+1508369277777	Delete element
+1508376102892	Delete element
+1508437381576	Delete element
+1508450413798	Rename type 'ProdutoAquisiçãoView'
+1508459588085	Delete element
+1508463612649	Delete element
+1508496310231	Extract local variable 'jComboBox'
+1508506036438	Delete element

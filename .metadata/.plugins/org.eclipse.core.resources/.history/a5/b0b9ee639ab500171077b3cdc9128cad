@@ -1,0 +1,16 @@
+package br.edu.ifcvideira.beans;
+
+public class F {
+	
+	private int indent;
+
+	public int getIndent() {
+		return indent;
+	}
+
+	public void setIndent(int indent) {
+		this.indent = indent;
+	}
+	
+
+}

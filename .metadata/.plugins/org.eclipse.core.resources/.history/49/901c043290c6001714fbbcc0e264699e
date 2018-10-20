@@ -1,0 +1,357 @@
+package br.edu.ifcvideira.controllers.views;
+
+import java.awt.EventQueue;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import br.edu.ifcvideira.DAOs.OrcamentoDao;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+import javax.swing.JSeparator;
+
+public class OrcamentoView extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private  List<Object> gastos = new ArrayList<Object>();
+	private  List<Object> ganhos = new ArrayList<Object>();
+	private JPanel contentPane;
+	private JTable table;
+	private JTable table_1;
+	private JTextField textFieldTotalGasto;
+	private JTextField textFieldTotalGanho;
+	private JTextField textFieldLucro;
+	java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
+
+	OrcamentoDao oDao = new OrcamentoDao();
+	private JTextField textFieldBuscarData;
+	private JTextField textFieldBuscarID;
+	private JTextField textFieldBuscarID2;
+	private JTextField textFieldBuscarData2;
+	double TotalGanho =0;
+	double TotalGasto =0;
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					OrcamentoView frame = new OrcamentoView();
+					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+			}
+		});
+	}
+
+	public OrcamentoView() {
+		addWindowListener(new WindowAdapter() {
+			public void windowOpened(WindowEvent arg0) {
+				atualizarTabela();
+		
+			}
+		});
+		JLabel textField = new JLabel("New label");
+		textField.setIcon(new ImageIcon("C:\\Users\\Arq_Alcides_Vania\\Desktop\\programa\u00E7\u00E3o\\pi\\src\\img\\base.png"));
+		
+		ImageIcon img = new ImageIcon (textField.getIcon().toString());  
+		textField.setIcon(img);
+        img.setImage(img.getImage().getScaledInstance(500, 680, 100));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
+
+		setTitle("Orçamento");
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100,  500, 700);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblGastos = new JLabel("Gastos:");
+		lblGastos.setFont(new Font("Segoe UI Symbol", Font.BOLD, 25));
+		lblGastos.setBounds(89, 129, 156, 20);
+		contentPane.add(lblGastos);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(20, 262, 213, 279);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Data", "ID aquisi\u00E7\u00E3o", "Valor"
+			}
+		));
+		table.getColumnModel().getColumn(0).setPreferredWidth(100);
+		table.getColumnModel().getColumn(1).setPreferredWidth(70);
+		table.getColumnModel().getColumn(2).setPreferredWidth(70);		
+		
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(272, 262, 200, 279);
+		contentPane.add(scrollPane_1);
+		
+		table_1 = new JTable();
+		scrollPane_1.setViewportView(table_1);
+		table_1.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Data", "ID venda", "Valor"
+			}
+		));
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(100);
+		table_1.getColumnModel().getColumn(1).setPreferredWidth(70);
+		table_1.getColumnModel().getColumn(2).setPreferredWidth(70);
+
+		
+		JButton sair = new JButton("Sair");
+		sair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				dispose();
+			}
+		});
+		sair.setBackground(SystemColor.controlHighlight);
+		sair.setBounds(191, 637, 112, 20);
+		contentPane.add(sair);
+		
+		JLabel lblGanhos = new JLabel("Ganhos:");
+		lblGanhos.setFont(new Font("Segoe UI Symbol", Font.BOLD, 25));
+		lblGanhos.setBounds(328, 129, 156, 20);
+		contentPane.add(lblGanhos);
+		
+		textFieldTotalGasto = new JTextField();
+		textFieldTotalGasto.setEditable(false);
+		textFieldTotalGasto.setBounds(113, 555, 113, 20);
+		contentPane.add(textFieldTotalGasto);
+		textFieldTotalGasto.setColumns(10);
+		
+		JLabel lblTotalGasto = new JLabel("Total Gasto:");
+		lblTotalGasto.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		lblTotalGasto.setBounds(10, 543, 143, 39);
+		contentPane.add(lblTotalGasto);
+		
+		JLabel lblTotalGanho = new JLabel("Total Ganho:");
+		lblTotalGanho.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		lblTotalGanho.setBounds(260, 552, 96, 20);
+		contentPane.add(lblTotalGanho);
+		
+		textFieldTotalGanho = new JTextField();
+		textFieldTotalGanho.setEditable(false);
+		textFieldTotalGanho.setColumns(10);
+		textFieldTotalGanho.setBounds(360, 555, 112, 20);
+		contentPane.add(textFieldTotalGanho);
+		
+		JLabel lblLucro = new JLabel("Lucro:");
+		lblLucro.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		lblLucro.setBounds(99, 603, 64, 20);
+		contentPane.add(lblLucro);
+		
+		textFieldLucro = new JTextField();
+		textFieldLucro.setEditable(false);
+		textFieldLucro.setBounds(163, 606, 175, 20);
+		contentPane.add(textFieldLucro);
+		textFieldLucro.setColumns(10);
+		
+		textFieldBuscarData = new JTextField();
+		textFieldBuscarData.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent e) {
+				TableRowSorter<TableModel> filtro = null;
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				filtro = new TableRowSorter<TableModel>(model);
+				table.setRowSorter(filtro);
+
+				if (textFieldBuscarData.getText().length() == 0) {
+					filtro.setRowFilter(null);
+				} else {
+					filtro.setRowFilter(RowFilter.regexFilter(textFieldBuscarData.getText(), 0));
+					
+					
+				}
+			}
+		});
+		textFieldBuscarData.setBounds(70, 231, 164, 20);
+		contentPane.add(textFieldBuscarData);
+		textFieldBuscarData.setColumns(10);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(20, 586, 452, 9);
+		contentPane.add(separator);
+		
+		JLabel lblBuscar = new JLabel("Buscar:");
+		lblBuscar.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		lblBuscar.setBounds(113, 175, 65, 14);
+		contentPane.add(lblBuscar);
+		
+		JLabel lblNome = new JLabel("Data:");
+		lblNome.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		lblNome.setBounds(20, 237, 65, 14);
+		contentPane.add(lblNome);
+		
+		textFieldBuscarID = new JTextField();
+		textFieldBuscarID.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				TableRowSorter<TableModel> filtro = null;
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				filtro = new TableRowSorter<TableModel>(model);
+				table.setRowSorter(filtro);
+
+				if (textFieldBuscarID.getText().length() == 0) {
+					filtro.setRowFilter(null);
+				} else {
+					filtro.setRowFilter(RowFilter.regexFilter("(?i)" + textFieldBuscarID.getText(), 1));
+				}
+
+			}
+		});
+		textFieldBuscarID.setColumns(10);
+		textFieldBuscarID.setBounds(70, 200, 164, 20);
+		contentPane.add(textFieldBuscarID);
+		
+		JLabel lblId = new JLabel("ID:");
+		lblId.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		lblId.setBounds(31, 206, 46, 14);
+		contentPane.add(lblId);
+		
+		textFieldBuscarID2 = new JTextField();
+		textFieldBuscarID2.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				
+				TableRowSorter<TableModel> filtro = null;
+				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
+				filtro = new TableRowSorter<TableModel>(model);
+				table_1.setRowSorter(filtro);
+
+				if (textFieldBuscarID2.getText().length() == 0) {
+					filtro.setRowFilter(null);
+					textFieldTotalGanho.setText(""+TotalGanho);
+					
+				} else {
+					
+					double tg=0;
+					filtro.setRowFilter(RowFilter.regexFilter("(?i)" + textFieldBuscarID2.getText(), 1));
+					for (int x=0; x!=filtro.getViewRowCount(); x++){					
+					tg+=(Double.parseDouble(String.valueOf(table_1.getValueAt(x, 2))));
+
+					}			
+
+				textFieldTotalGanho.setText(""+tg);
+				textFieldLucro.setText(""+((Double.parseDouble(textFieldTotalGanho.getText()))-(Double.parseDouble(textFieldTotalGasto.getText()))));
+				JOptionPane.showMessageDialog(null, "1");
+				}
+				
+				
+				
+				}
+
+			}
+		);
+		textFieldBuscarID2.setColumns(10);
+		textFieldBuscarID2.setBounds(308, 200, 164, 20);
+		contentPane.add(textFieldBuscarID2);
+		
+		textFieldBuscarData2 = new JTextField();
+		textFieldBuscarData2.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent e) {
+				TableRowSorter<TableModel> filtro = null;
+				DefaultTableModel model = (DefaultTableModel) table_1.getModel();
+				filtro = new TableRowSorter<TableModel>(model);
+				table_1.setRowSorter(filtro);
+
+				if (textFieldBuscarData2.getText().length() == 0) {
+					filtro.setRowFilter(null);
+				} else {
+					filtro.setRowFilter(RowFilter.regexFilter(textFieldBuscarData2.getText(), 0));
+				}
+			}
+		});
+		textFieldBuscarData2.setColumns(10);
+		textFieldBuscarData2.setBounds(308, 231, 164, 20);
+		contentPane.add(textFieldBuscarData2);
+		
+		JLabel label = new JLabel("ID:");
+		label.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		label.setBounds(279, 206, 46, 14);
+		contentPane.add(label);
+		
+		JLabel label_1 = new JLabel("Data:");
+		label_1.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		label_1.setBounds(260, 237, 65, 14);
+		contentPane.add(label_1);
+		
+		JLabel label_2 = new JLabel("Buscar:");
+		label_2.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
+		label_2.setBounds(360, 175, 65, 14);
+		contentPane.add(label_2);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(21, 160, 451, 4);
+		contentPane.add(separator_1);
+
+		
+		textField.setBounds(0, 0, 494, 671);
+		contentPane.add(textField);
+	}
+
+	public void atualizarTabela() {
+
+
+		try {
+			gastos = oDao.Gastos();
+			oDao.Gastos();
+			DefaultTableModel model = (DefaultTableModel) table.getModel();
+			model.setNumRows(0);
+		for (int x=0; x!=gastos.size(); x++)
+			{
+				model.addRow((Object[]) gastos.get(x));
+				TotalGasto+=(Double.parseDouble(String.valueOf(table.getValueAt(x, 2))));
+
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		try {
+			ganhos = oDao.Ganhos();
+			DefaultTableModel model = (DefaultTableModel) table_1.getModel();
+			model.setNumRows(0);
+		for (int x=0; x!=ganhos.size(); x++)
+			{
+			model.addRow((Object[]) ganhos.get(x));
+			TotalGanho+=(Double.parseDouble(String.valueOf(table_1.getValueAt(x, 2))));
+
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		
+		textFieldTotalGanho.setText(""+TotalGanho);
+		textFieldTotalGasto.setText(""+TotalGasto);
+		textFieldLucro.setText(""+(TotalGanho-TotalGasto));
+	}
+}

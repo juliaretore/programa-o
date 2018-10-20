@@ -1,0 +1,168 @@
+package br.edu.ifcvideira.beans;
+
+import java.sql.Timestamp;
+
+public class Usuario {
+	
+	private int id;
+	private String nome;
+	private String cpf;
+	private String telefone;
+	private String celular;
+	private Timestamp dataCadastro;
+	private String rgUsuario;
+	private String senhaUsuario;
+	private String loginUsuario;
+	public static String loginUsuarioStatic;
+	public static int IdUsuario;
+	
+	public String getrgUsuario() {
+		return rgUsuario;
+	}
+	public void setrgUsuario(String rgUsuario) {
+		this.rgUsuario = rgUsuario;
+	}
+	public String getsenhaUsuario() {
+		return senhaUsuario;
+	}
+	public void setsenhaUsuario(String senhaUsuario) {
+		this.senhaUsuario = senhaUsuario;
+	}
+	public String getloginUsuario() {
+		return loginUsuario;
+	}
+	public void setloginUsuario(String loginUsuario) {
+		this.loginUsuario = loginUsuario;
+	}
+	public static String getLoginUsuario() {
+		return loginUsuarioStatic;
+	}
+
+	public static void setLoginUsuario(String loginUsuario) {
+		Usuario.loginUsuarioStatic = loginUsuario;
+	}
+	public static int getIdusuario() {
+		return IdUsuario;
+	}
+	public static void setIdusuario(int idUsuario) {
+		Usuario.IdUsuario = idUsuario;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getCpf() {
+		return cpf;
+	}
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	public String getTelefone() {
+		return telefone;
+	}
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+	public String getCelular() {
+		return celular;
+	}
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+	public Timestamp getDataCadastro() {
+		return dataCadastro;
+	}
+	public void setDataCadastro(Timestamp dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	
+	
+	private String rgUsuario;
+	private String senhaUsuario;
+	private String loginUsuario;
+	public static String loginUsuarioStatic;
+	public static int IdUsuario;
+	
+	public Usuario(){
+		
+	}
+	
+	
+
+
+	public String getrgUsuario() {
+		return rgUsuario;
+	}
+
+
+
+	public void setrgUsuario(String rgUsuario) {
+		this.rgUsuario = rgUsuario;
+	}
+
+
+	public String getsenhaUsuario() {
+		return senhaUsuario;
+	}
+
+
+
+	public void setsenhaUsuario(String senhaUsuario) {
+		this.senhaUsuario = senhaUsuario;
+	}
+
+
+
+	public String getloginUsuario() {
+		return loginUsuario;
+	}
+
+
+
+	public void setloginUsuario(String loginUsuario) {
+		this.loginUsuario = loginUsuario;
+	}
+
+	public static String getLoginUsuario() {
+		return loginUsuarioStatic;
+	}
+
+
+
+	public static void setLoginUsuario(String loginUsuario) {
+		Usuario.loginUsuarioStatic = loginUsuario;
+	}
+
+
+
+	public static int getIdusuario() {
+		return IdUsuario;
+	}
+
+
+
+	public static void setIdusuario(int idUsuario) {
+		Usuario.IdUsuario = idUsuario;
+	}
+
+
+
+
+
+
+	
+	
+
+}
+
+
+}

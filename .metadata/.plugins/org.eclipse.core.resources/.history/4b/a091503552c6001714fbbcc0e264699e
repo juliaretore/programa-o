@@ -1,0 +1,73 @@
+package br.edu.ifcvideira.beans;
+import java.sql.Timestamp;
+
+public class Vendas {
+
+	private int idVenda;
+	private String situacaoVenda;
+	private Clientes idCodigoCliente;
+	private Usuarios idCodigoUsuario;
+	private String tipoVenda;
+	private Timestamp dataVenda;
+	
+	
+
+	
+	public Vendas() {
+		
+	}
+	
+	
+	public int getId_venda() {
+		return idVenda;
+	}
+
+	public void setId_venda(int idVenda) {
+		this.idVenda = idVenda;
+	}
+
+	public String getsituacaoVenda() {
+		return situacaoVenda;
+	}
+
+	public void setsituacaoVenda(String situacaoVenda) {
+		this.situacaoVenda = situacaoVenda;
+	}
+	
+	public Clientes getidCodigoCliente() {
+		return idCodigoCliente;
+	}
+
+	public void setidCodigoCliente(Clientes idCodigoCliente) {
+		this.idCodigoCliente = idCodigoCliente;
+	}
+
+	public Usuarios getidCodigoUsuario() {
+		return idCodigoUsuario;
+	}
+
+
+	public void setidCodigoUsuario(Usuarios idCodigoUsuario) {
+		this.idCodigoUsuario = idCodigoUsuario;
+	}
+
+
+	public String gettipoVenda() {
+		return tipoVenda;
+	}
+
+	public void settipoVenda(String tipoVenda) {
+		this.tipoVenda = tipoVenda;
+	}
+
+	public Timestamp getdataVenda() {
+		return dataVenda;
+	}
+
+	public void setdataVenda(Timestamp dataVenda) {
+		this.dataVenda = dataVenda;
+	}
+	
+	
+
+}

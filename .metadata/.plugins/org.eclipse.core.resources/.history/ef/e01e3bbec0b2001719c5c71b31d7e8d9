@@ -1,0 +1,37 @@
+package br.edu.ifcvideira.beans;
+
+public class Vendas {
+	
+	Cliente c = new Cliente();
+	Usuario u = new Usuario();
+	
+	private String tipovenda;
+	private String situacaovenda;
+	public Cliente getC() {
+		return c;
+	}
+	public void setC(Cliente c) {
+		this.c = c;
+	}
+	public Usuario getU() {
+		return u;
+	}
+	public void setU(Usuario u) {
+		this.u = u;
+	}
+	public String getTipovenda() {
+		return tipovenda;
+	}
+	public void setTipovenda(String tipovenda) {
+		this.tipovenda = tipovenda;
+	}
+	public String getsituacaovenda() {
+		return situacaovenda;
+	}
+	public void setsituacaovenda(String situacaovenda) {
+		this.situacaovenda = situacaovenda;
+	}
+	
+	
+
+}

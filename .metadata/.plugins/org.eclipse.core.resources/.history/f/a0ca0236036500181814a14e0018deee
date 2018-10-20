@@ -1,0 +1,28 @@
+package br.transbus.main;
+import br.transbus.classes.Cliente;
+import br.transbus.classes.Onibus;
+import br.transbus.classes.Reserva;
+import br.transbus.facade.Facade;
+
+public class main {
+	public static void main(String[] args) {
+
+		Cliente cliente = new Cliente("Julia Retore", 17);
+		Onibus onibus = new Onibus(1, 150.00);
+		Reserva reserva = new Reserva("Ouro Prata");
+
+		Facade agencia = new Facade(onibus, reserva);
+		agencia.registraViagem(cliente);
+
+		}
+	
+
+}
+
+
+
+
+
+
+
+

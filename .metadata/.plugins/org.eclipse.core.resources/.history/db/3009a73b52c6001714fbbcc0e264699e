@@ -1,0 +1,11 @@
+package br.edu.ifcvideirabeans;
+
+public class Clientes extends Pessoa {
+	
+
+	public Clientes(){
+			
+		}
+
+		
+}

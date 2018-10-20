@@ -1,0 +1,69 @@
+package br.edu.ifcvideirabeans;
+
+import java.sql.Timestamp;
+
+public class Aquisicoes {
+
+	
+	private int idAquisicao;
+	private int quantidadeAquisicao;
+	private double valorUnitarioAquisicao;
+	private Timestamp dataAquisicao;
+	private Fornecedores idFornecedorAquisicao;
+	private Produtos idProdutoAquisicao;
+	private Usuarios idUsuarioAquisicao;
+	
+	public Aquisicoes(){
+		
+	}
+	
+	public int getidAquisicao() {
+		return idAquisicao;
+	}
+	public void setidAquisicao(int idAquisicao) {
+		this.idAquisicao = idAquisicao;
+	}
+	public int getquantidadeAquisicao() {
+		return quantidadeAquisicao;
+	}
+	public void setquantidadeAquisicao(int quantidadeAquisicao) {
+		this.quantidadeAquisicao = quantidadeAquisicao;
+	}
+	public double getvalorUnitarioAquisicao() {
+		return valorUnitarioAquisicao;
+	}
+	public void setvalorUnitarioAquisicao(double valorUnitarioAquisicao) {
+		this.valorUnitarioAquisicao = valorUnitarioAquisicao;
+	}
+	public Timestamp getdataAquisicao() {
+		return dataAquisicao;
+	}
+	public void setdataAquisicao(Timestamp dataAquisicao) {
+		this.dataAquisicao = dataAquisicao;
+	}
+	public Fornecedores getidFornecedorAquisicao() {
+		return idFornecedorAquisicao;
+	}
+	public void setidFornecedorAquisicao(Fornecedores idFornecedorAquisicao) {
+		this.idFornecedorAquisicao = idFornecedorAquisicao;
+	}
+	public Produtos getidProdutoAquisicao() {
+		return idProdutoAquisicao;
+	}
+	public void setidProdutoAquisicao(Produtos idProdutoAquisicao) {
+		this.idProdutoAquisicao = idProdutoAquisicao;
+	}
+	public Usuarios getidUsuarioAquisicao() {
+		return idUsuarioAquisicao;
+	}
+	public void setidUsuarioAquisicao(Usuarios idUsuarioAquisicao) {
+		this.idUsuarioAquisicao = idUsuarioAquisicao;
+	}
+	
+	
+	
+	
+	
+	
+
+}

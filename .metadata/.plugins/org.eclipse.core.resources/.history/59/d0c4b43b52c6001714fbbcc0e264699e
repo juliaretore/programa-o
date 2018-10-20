@@ -1,0 +1,69 @@
+package br.edu.ifcvideirabeans;
+
+import java.sql.Timestamp;
+
+public class Aquisicao {
+
+	
+	private int id_aquisicao;
+	private int quantidade_aquisicao;
+	private double valor_unitario_aquisicao;
+	private Timestamp data_aquisicao;
+	private Fornecedor id_fornecedor_aquisicao;
+	private Produto id_produto_aquisicao;
+	private Usuario id_usuario_aquisicao;
+	
+	public Aquisicao(){
+		
+	}
+	
+	public int getId_aquisicao() {
+		return id_aquisicao;
+	}
+	public void setId_aquisicao(int id_aquisicao) {
+		this.id_aquisicao = id_aquisicao;
+	}
+	public int getQuantidade_aquisicao() {
+		return quantidade_aquisicao;
+	}
+	public void setQuantidade_aquisicao(int quantidade_aquisicao) {
+		this.quantidade_aquisicao = quantidade_aquisicao;
+	}
+	public double getValor_unitario_aquisicao() {
+		return valor_unitario_aquisicao;
+	}
+	public void setValor_unitario_aquisicao(double valor_unitario_aquisicao) {
+		this.valor_unitario_aquisicao = valor_unitario_aquisicao;
+	}
+	public Timestamp getData_aquisicao() {
+		return data_aquisicao;
+	}
+	public void setData_aquisicao(Timestamp data_aquisicao) {
+		this.data_aquisicao = data_aquisicao;
+	}
+	public Fornecedor getId_fornecedor_aquisicao() {
+		return id_fornecedor_aquisicao;
+	}
+	public void setId_fornecedor_aquisicao(Fornecedor id_fornecedor_aquisicao) {
+		this.id_fornecedor_aquisicao = id_fornecedor_aquisicao;
+	}
+	public Produto getId_produto_aquisicao() {
+		return id_produto_aquisicao;
+	}
+	public void setId_produto_aquisicao(Produto id_produto_aquisicao) {
+		this.id_produto_aquisicao = id_produto_aquisicao;
+	}
+	public Usuario getId_usuario_aquisicao() {
+		return id_usuario_aquisicao;
+	}
+	public void setId_usuario_aquisicao(Usuario id_usuario_aquisicao) {
+		this.id_usuario_aquisicao = id_usuario_aquisicao;
+	}
+	
+	
+	
+	
+	
+	
+
+}

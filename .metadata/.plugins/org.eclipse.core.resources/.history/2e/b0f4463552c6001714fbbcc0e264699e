@@ -1,0 +1,39 @@
+package br.edu.ifcvideira.beans;
+
+public class Fornecedores {
+	
+	private int idFornecedor;
+	private String nomeFornecedor;
+	private String cnpjFornecedor;
+	
+	public Fornecedores() {
+		
+	}
+
+	public int getidFornecedor() {
+		return idFornecedor;
+	}
+
+	public void setidFornecedor(int idFornecedor) {
+		this.idFornecedor = idFornecedor;
+	}
+
+	public String getnomeFornecedor() {
+		return nomeFornecedor;
+	}
+
+	public void setnomeFornecedor(String nomeFornecedor) {
+		this.nomeFornecedor = nomeFornecedor;
+	}
+
+	public String getcnpjFornecedor() {
+		return cnpjFornecedor;
+	}
+
+	public void setcnpjFornecedor(String cnpjFornecedor) {
+		this.cnpjFornecedor = cnpjFornecedor;
+	}
+	
+}
+
+

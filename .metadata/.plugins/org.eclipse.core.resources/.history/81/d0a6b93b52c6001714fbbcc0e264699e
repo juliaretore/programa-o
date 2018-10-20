@@ -1,0 +1,92 @@
+package br.edu.ifcvideirabeans;
+import java.sql.Timestamp;
+
+public class Venda {
+
+	private int id_venda;
+	private String situacao_venda;
+	private Cliente id_codigo_cliente;
+	private Usuario id_codigo_usuario;
+	private String tipo_venda;
+	private Timestamp data_venda;
+	
+	
+	public Venda() {
+		
+	}
+
+
+
+	public int getId_venda() {
+		return id_venda;
+	}
+
+
+
+	public void setId_venda(int id_venda) {
+		this.id_venda = id_venda;
+	}
+
+
+
+	public String getSituacao_venda() {
+		return situacao_venda;
+	}
+
+
+
+	public void setSituacao_venda(String situacao_venda) {
+		this.situacao_venda = situacao_venda;
+	}
+
+
+
+	public Cliente getId_codigo_cliente() {
+		return id_codigo_cliente;
+	}
+
+
+
+	public void setId_codigo_cliente(Cliente id_codigo_cliente) {
+		this.id_codigo_cliente = id_codigo_cliente;
+	}
+
+
+
+	public Usuario getId_codigo_usuario() {
+		return id_codigo_usuario;
+	}
+
+
+
+	public void setId_codigo_usuario(Usuario id_codigo_usuario) {
+		this.id_codigo_usuario = id_codigo_usuario;
+	}
+
+
+
+	public String getTipo_venda() {
+		return tipo_venda;
+	}
+
+
+
+	public void setTipo_venda(String tipo_venda) {
+		this.tipo_venda = tipo_venda;
+	}
+
+
+
+	public Timestamp getData_venda() {
+		return data_venda;
+	}
+
+
+
+	public void setData_venda(Timestamp data_venda) {
+		this.data_venda = data_venda;
+	}
+	
+	
+
+}

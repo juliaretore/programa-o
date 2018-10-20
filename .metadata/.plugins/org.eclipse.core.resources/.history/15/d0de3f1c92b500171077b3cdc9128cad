@@ -1,0 +1,65 @@
+package br.edu.ifcvideira.beans;
+
+import java.sql.Timestamp;
+
+public class Aquisicao {
+
+	
+	private int codigoaquisicao;
+	private int quantidade;
+	private double vlrunitarioaquisicao;
+	private Timestamp datacadastro;
+	private Fornecedor codigoFornecedor;
+	private Produto codigoProduto;
+	private Usuario codigoUsuario;
+	
+	
+	
+	public Fornecedor getCodigoFornecedor() {
+		return codigoFornecedor;
+	}
+	public void setCodigoFornecedor(Fornecedor codigoFornecedor) {
+		this.codigoFornecedor = codigoFornecedor;
+	}
+	public Produto getCodigoProduto() {
+		return codigoProduto;
+	}
+	public void setCodigoProduto(Produto codigoProduto) {
+		this.codigoProduto = codigoProduto;
+	}
+	public Usuario getCodigoUsuario() {
+		return codigoUsuario;
+	}
+	public void setCodigoUsuario(Usuario codigoUsuario) {
+		this.codigoUsuario = codigoUsuario;
+	}
+	public Timestamp getDatacadastro() {
+		return datacadastro;
+	}
+	public void setDatacadastro(Timestamp datacadastro) {
+		this.datacadastro = datacadastro;
+	}
+
+	public int getCodigoaquisicao() {
+		return codigoaquisicao;
+	}
+	public void setCodigoaquisicao(int codigoaquisicao) {
+		this.codigoaquisicao = codigoaquisicao;
+	}
+	public int getQuantidade() {
+		return quantidade;
+	}
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+	public double getVlrunitarioaquisicao() {
+		return vlrunitarioaquisicao;
+	}
+	public void setVlrunitarioaquisicao(double vlrunitarioaquisicao) {
+		this.vlrunitarioaquisicao = vlrunitarioaquisicao;
+	}
+	
+	
+	
+
+}

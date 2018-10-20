@@ -1,0 +1,114 @@
+package br.edu.ifcvideira.DAOs;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import br.edu.ifcvideira.beans.Produtos;
+import br.edu.ifcvideira.beans.Vendas;
+import br.edu.ifcvideira.utils.Conexao;
+
+public class VendaDao {
+	public void CadastrarVenda(Vendas v) throws SQLException, Exception {
+		try {
+			String sql = "INSERT INTO vendas (id_venda, id_usuario_venda, tipo_venda, situacao_venda, id_cliente_venda, data_venda) VALUES (?,?,?,?,?,?)";
+			java.sql.PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
+			int contador = 1;
+			sqlPrep.setInt(contador++, v.getId_venda());
+			sqlPrep.setInt(contador++, v.getidCodigoUsuario().getId());
+			sqlPrep.setString(contador++, v.gettipoVenda());
+			sqlPrep.setString(contador++, v.getsituacaoVenda());
+			sqlPrep.setInt(contador++, v.getidCodigoCliente().getId());
+			sqlPrep.setTimestamp(contador++, v.getdataVenda());
+			sqlPrep.execute();
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+	public void CadastrarProdutosVenda(Produtos p, Vendas v) throws SQLException, Exception {
+		try {
+			String sql = "INSERT INTO produtos_venda (id_produtos_venda, id_produto_produtos_venda, id_venda_produtos_venda, valor_unitario_produtos_venda) VALUES (?,?,?,?)";
+			java.sql.PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
+			int contador = 1;
+			sqlPrep.setInt(contador++, RetornarProximoCodigoProdutosVenda());
+			sqlPrep.setInt(contador++, p.getidProduto());
+			sqlPrep.setInt(contador++, v.getId_venda());
+			sqlPrep.setDouble(contador++, p.getvalorUnitarioProduto());		
+			sqlPrep.execute();
+
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+	
+	public int RetornarProximoCodigoProdutosVenda() throws Exception {
+		try {
+			String sql = "SELECT COALESCE(MAX(id_produtos_venda), 0)+1 AS codigo FROM produtos_venda";
+			PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
+			ResultSet rs = sqlPrep.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("codigo");
+			} else {
+				return 1;
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return 1;
+		}
+	}
+	
+	public int RetornarProximoCodigoVenda() throws Exception {
+		try {
+			String sql = "SELECT COALESCE(MAX(id_venda), 0)+1 AS codigo FROM vendas";
+			PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
+			ResultSet rs = sqlPrep.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("codigo");
+			} else {
+				return 1;
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return 1;
+		}
+	}
+	
+	public List<Object> TabelaProdutos() throws SQLException, Exception {
+		List<Object> produtos = new ArrayList<Object>();
+		try {
+			String sql = "SELECT DISTINCT id_produto, nome_produto, valor_unitario_produto FROM produtos WHERE id_produto IN (SELECT id_produto_aquisicao FROM aquisicoes WHERE quantidade_aquisicao>0)";
+			java.sql.Statement state = Conexao.getInstance().createStatement();
+			ResultSet rs = state.executeQuery(sql);
+
+			while (rs.next()) {
+				Object[] linha = { rs.getString(1), rs.getString(2), rs.getString(3) };
+				produtos.add(linha);
+			}
+			state.close();
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		return produtos;
+	}
+	
+	public void DeletarAquisicao (Produtos p) throws SQLException {
+		String sql = "UPDATE aquisicoes SET quantidade_aquisicao=quantidade_aquisicao-1 WHERE CTID IN (SELECT CTID FROM aquisicoes WHERE quantidade_aquisicao>0 AND id_produto_aquisicao=?  LIMIT 1)";
+		java.sql.PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
+	
+			
+			int contador=1;
+			sqlPrep.setInt(contador++, p.getidProduto());
+			sqlPrep.execute();
+
+		
+	}
+}

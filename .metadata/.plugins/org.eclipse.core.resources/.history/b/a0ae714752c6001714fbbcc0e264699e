@@ -1,0 +1,70 @@
+package br.edu.ifcvideira.DAOs;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import br.edu.ifcvideira.beans.ProdutosVenda;
+import br.edu.ifcvideira.utils.Conexao;
+
+public class ProdutosVendaDao {
+	
+	public void CadastrarProdutosVenda(ProdutosVenda pv) throws SQLException, Exception {
+		try {
+			String sql = "INSERT INTO produtos_venda (id_produtos_venda, id_produto_produtos_venda, id_venda_produtos_venda, valor_unitario_produtos_venda) VALUES (?,?,?,?)";
+			java.sql.PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
+			int contador = 1;
+			sqlPrep.setInt(contador++, pv.getId_produtos_venda());
+			sqlPrep.setInt(contador++, pv.getId_produto_produtos_venda().getId_produto());
+			sqlPrep.setInt(contador++, pv.getId_venda_produtos_venda().getId_venda());
+			sqlPrep.setDouble(contador++, pv.getValor_unitario_produtos_venda());
+		
+			sqlPrep.execute();
+
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+
+	public List<Object> buscarTodos() throws SQLException, Exception {
+		List<Object> aquisicao = new ArrayList<Object>();
+		try {
+			String sql = "SELECT * FROM produtos_venda";
+			java.sql.Statement state = Conexao.getInstance().createStatement();
+			ResultSet rs = state.executeQuery(sql);
+
+			while (rs.next()) {
+				Object[] linha = { rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)};
+				aquisicao.add(linha);
+			}
+			state.close();
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		return aquisicao;
+	}
+
+	public int RetornarProximoCodigoProdutosVenda() throws Exception {
+		try {
+			String sql = "SELECT COALESCE(MAX(id_produtos_venda), 0)+1 AS codigo FROM produtos_venda";
+			PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
+			ResultSet rs = sqlPrep.executeQuery();
+			if (rs.next()) {
+				return rs.getInt("codigo");
+			} else {
+				return 1;
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return 1;
+		}
+	}
+
+
+}

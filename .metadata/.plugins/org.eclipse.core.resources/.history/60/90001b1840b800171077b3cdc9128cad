@@ -1,0 +1,46 @@
+package br.edu.ifcvideira.beans;
+
+public class Vendas {
+
+	
+	private String tipovenda;
+	private String situacaovenda;
+	private Cliente codigoCliente;
+	private Usuario codigoUsuario;
+	
+	
+	
+	public String getSituacaovenda() {
+		return situacaovenda;
+	}
+	public void setSituacaovenda(String situacaovenda) {
+		this.situacaovenda = situacaovenda;
+	}
+	public Cliente getCodigoCliente() {
+		return codigoCliente;
+	}
+	public void setCodigoCliente(Cliente codigoCliente) {
+		this.codigoCliente = codigoCliente;
+	}
+	public Usuario getCodigoUsuario() {
+		return codigoUsuario;
+	}
+	public void setCodigoUsuario(Usuario codigoUsuario) {
+		this.codigoUsuario = codigoUsuario;
+	}
+	public String getTipovenda() {
+		return tipovenda;
+	}
+	public void setTipovenda(String tipovenda) {
+		this.tipovenda = tipovenda;
+	}
+	public String getsituacaovenda() {
+		return situacaovenda;
+	}
+	public void setsituacaovenda(String situacaovenda) {
+		this.situacaovenda = situacaovenda;
+	}
+	
+	
+
+}

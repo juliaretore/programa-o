@@ -1,0 +1,187 @@
+package br.edu.ifcvideira.controllers.views;
+
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import br.edu.ifcvideira.beans.Usuarios;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+
+public class MenuView extends JFrame {
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField textusuario;
+	public static boolean sairr;
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			
+			public void run() {
+				try {
+					MenuView frame = new MenuView();
+					frame.setVisible(true);
+					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+
+	public MenuView() {
+		MenuView.sairr=true;
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Arq_Alcides_Vania\\Desktop\\programa\u00E7\u00E3o\\pi\\src\\img\\menu.png"));
+		ImageIcon img = new ImageIcon (lblNewLabel.getIcon().toString());  
+        img.setImage(img.getImage().getScaledInstance(1400, 900, 100));
+        
+		setTitle("Menu");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(0, 0, 2000, 1450);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		
+		JButton btnClientes = new JButton("Clientes");
+		btnClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ClienteView frame = new ClienteView();
+				frame.setVisible(true);
+				dispose();
+			
+				
+				
+			}
+		});
+		btnClientes.setBounds(78, 110, 133, 36);
+		contentPane.add(btnClientes);
+		
+		JButton btnProdutos = new JButton("Produtos");
+		btnProdutos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ProdutoView frame = new ProdutoView();
+				frame.setVisible(true);
+				dispose();
+				
+			}
+
+		});
+		btnProdutos.setBounds(78, 157, 133, 36);
+		contentPane.add(btnProdutos);
+		
+		JButton btnVender = new JButton("Vender");
+		btnVender.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VendaView frame = new VendaView();
+				frame.setVisible(true);
+				MenuView.sairr=false;
+				dispose();
+			
+			}
+		});
+		btnVender.setBounds(267, 110, 133, 36);
+		contentPane.add(btnVender);
+		
+		JButton btnUsuraios = new JButton("Usu\u00E1rios");
+		btnUsuraios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				UsuarioView frame = new UsuarioView();
+				frame.setVisible(true);
+				dispose();
+				
+			}
+		});
+		btnUsuraios.setBounds(78, 63, 133, 36);
+		contentPane.add(btnUsuraios);
+		
+		JButton btnOrcamento = new JButton("Or\u00E7amento");
+		btnOrcamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			OrcamentoView frame = new OrcamentoView();
+			frame.setVisible(true);
+			
+			}
+			
+		});
+		btnOrcamento.setBounds(267, 204, 133, 36);
+		contentPane.add(btnOrcamento);
+		JButton btnNewButton = new JButton("Deslogar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LoginView frame = new LoginView();
+				frame.setVisible(true);
+				dispose();
+			
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnNewButton.setBounds(471, 352, 96, 21);
+		contentPane.add(btnNewButton);
+		
+		JButton btnAquisicoes = new JButton("Aquisi\u00E7\u00F5es");
+		btnAquisicoes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				AquisicaoView frame = new AquisicaoView();
+				frame.setVisible(true);
+				MenuView.sairr=false;
+				dispose();
+				
+						}
+		});
+		btnAquisicoes.setBounds(267, 63, 133, 36);
+		contentPane.add(btnAquisicoes);
+		
+		JButton btnFornecedores = new JButton("Fornecedores");
+		btnFornecedores.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				FornecedorView frame = new FornecedorView();
+				frame.setVisible(true);
+				
+			
+				dispose();
+				
+			}
+		});
+		btnFornecedores.setBounds(78, 204, 133, 36);
+		contentPane.add(btnFornecedores);
+		
+		JButton btnConta = new JButton("Pagamento Conta");
+		btnConta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				PagamentoContaView frame = new PagamentoContaView();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnConta.setBounds(267, 157, 133, 36);
+		contentPane.add(btnConta);
+		
+		textusuario = new JTextField();
+		textusuario.setText(Usuarios.getLoginUsuario());
+		textusuario.setEditable(false);
+		textusuario.setBounds(375, 352, 86, 20);
+		contentPane.add(textusuario);
+		textusuario.setColumns(10);
+		
+		lblNewLabel.setBounds(0, 0, 1362, 741);
+		contentPane.add(lblNewLabel);
+		
+    
+		
+
+	}
+	
+	
+}

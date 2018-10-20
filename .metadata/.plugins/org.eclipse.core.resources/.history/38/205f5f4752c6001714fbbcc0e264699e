@@ -1,0 +1,114 @@
+package br.edu.ifcvideira.DAOs;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import br.edu.ifcvideira.beans.Produtos;
+import br.edu.ifcvideira.utils.Conexao;
+
+public class ProdutoDao {
+	
+
+	public void CadastrarProduto(Produtos p) throws SQLException, Exception{
+		try{
+			String sql = "INSERT INTO produtos (id_produto, nome_produto, valor_unitario_produto) VALUES (?,?,?)";
+			java.sql.PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
+			int contador = 1;
+			sqlPrep.setInt(contador++, p.getidProduto());
+			sqlPrep.setString(contador++, p.getnomeProduto());
+			sqlPrep.setDouble(contador++, p.getvalorUnitarioProduto());
+			sqlPrep.execute();
+			
+		} catch(SQLException e) {
+			JOptionPane.showMessageDialog(null,e.getMessage());
+			
+		} catch(Exception e) {
+			JOptionPane.showMessageDialog(null,e.getMessage());
+		}
+	}
+	
+	
+		
+		public void AlterarProduto(Produtos p) throws Exception {
+			try{
+				String sql = "UPDATE produtos SET nome_produto=?, valor_unitario_produto=? WHERE id_produto=?";
+				PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
+				int contador = 1;
+				sqlPrep.setString(contador++, p.getnomeProduto());
+				sqlPrep.setDouble(contador++, p.getvalorUnitarioProduto());
+				sqlPrep.setInt(contador++, p.getidProduto());
+				sqlPrep.execute();
+			}catch(Exception e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
+		}
+		
+		
+		
+		
+		
+		
+		public void DeletarProduto(Produtos p) throws Exception{
+			try{
+				String sql = "DELETE FROM produtos WHERE id_produto=? ";
+				PreparedStatement sqlPrep = (PreparedStatement) Conexao.getInstance().prepareStatement(sql);
+				sqlPrep.setInt(1, p.getidProduto());
+				sqlPrep.execute();
+			} catch (SQLException e){
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
+		}
+		
+		
+		
+		public List<Object> BuscarTodos() throws SQLException, Exception{
+			List<Object> produto = new ArrayList<Object>();
+			try {
+				String sql = "SELECT * FROM produtos";
+				java.sql.Statement state = Conexao.getInstance().createStatement();
+				ResultSet rs = state.executeQuery(sql);
+				
+				while (rs.next())
+				{
+					Object[] linha = {rs.getString(1), rs.getString(2), rs.getString(3)};
+					produto.add(linha);
+				}
+				state.close();
+				
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
+			return produto;
+		}
+		
+		public int RetornarProximoCodigoProduto() throws Exception {
+			try{
+				String sql ="SELECT COALESCE(MAX(id_produto), 0)+1 AS codigo FROM produtos";
+				PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
+				ResultSet rs = sqlPrep.executeQuery();
+				if (rs.next()){
+					return rs.getInt("codigo");
+				}else{
+					return 1;
+				}
+			} catch(Exception e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
+				return 1;
+			}
+		
+		
+		
+		
+	}
+		
+		
+		
+		
+		
+
+}
+
+

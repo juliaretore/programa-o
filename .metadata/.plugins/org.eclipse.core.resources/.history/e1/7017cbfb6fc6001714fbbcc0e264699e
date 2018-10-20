@@ -1,0 +1,57 @@
+package br.edu.ifcvideira.DAOs;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import br.edu.ifcvideira.utils.Conexao;
+
+public class OrcamentoDao {
+	
+
+	public List<Object> Gastos() throws SQLException, Exception {
+		List<Object> gastos = new ArrayList<Object>();
+
+		try {
+			String sql = "SELECT CAST(data_aquisicao AS DATE), id_aquisicao, SUM(valor_unitario_aquisicao*quantidade_aquisicao) FROM aquisicao_historico  GROUP BY CAST(data_aquisicao AS DATE), id_aquisicao";
+			java.sql.Statement state = Conexao.getInstance().createStatement();
+			ResultSet rs = state.executeQuery(sql);
+
+			while (rs.next()) {
+				Object[] linha = { rs.getTimestamp(1), rs.getInt(2), rs.getDouble(3)};
+				gastos.add(linha);
+			}
+			state.close();
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+
+		return gastos;
+
+	}
+	
+	public List <Object> Ganhos() throws SQLException, Exception {
+		List<Object> ganhos = new ArrayList<Object>();
+
+		try {
+			String sql = "SELECT CAST(data_venda_proodutos_venda AS DATE), id_venda_produtos_venda, SUM(valor_unitario_produtos_venda) FROM produtos_venda WHERE id_venda_produtos_venda IN (SELECT id_venda FROM vendas WHERE situacao_venda='Pago') GROUP BY id_venda_produtos_venda, CAST(data_venda_proodutos_venda AS DATE)";
+			java.sql.Statement state = Conexao.getInstance().createStatement();
+			ResultSet rs = state.executeQuery(sql);
+
+			while (rs.next()) {
+				Object[] linha = {rs.getString(1), rs.getInt(2), rs.getDouble(3) };
+				ganhos.add(linha);
+			}
+			state.close();
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		return ganhos;
+
+	
+	}
+
+}

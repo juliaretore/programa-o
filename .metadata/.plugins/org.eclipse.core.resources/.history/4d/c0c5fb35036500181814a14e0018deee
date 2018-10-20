@@ -1,0 +1,50 @@
+package br.transbus.facade;
+
+import br.transbus.classes.Cliente;
+import br.transbus.classes.Onibus;
+import br.transbus.classes.Reserva;
+
+public class Facade {
+	private Onibus onibus;
+	private Reserva reserva;
+	private Cliente cliente;
+	
+	public Facade(Onibus onibus, Reserva reserva) {
+	super();
+	this.onibus = onibus;
+	this.reserva = reserva;
+	}
+
+	//aqui que acontece as notificações para  as dependências
+
+	public void registraViagem(Cliente cliente){
+	this.onibus.registraReserva(cliente.getNome(), reserva.getNomeOnibus());
+	this.reserva.reservaOnibus(cliente.getNome());
+	}
+
+	public Onibus getHotel() {
+	return onibus;
+	}
+
+	public void setHotel(Onibus onibus) {
+	this.onibus = onibus;
+	}
+
+	public Reserva getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+
+}

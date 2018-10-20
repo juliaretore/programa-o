@@ -1,0 +1,50 @@
+package br.edu.ifcvideira.DAOs;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import br.edu.ifcvideira.beans.Usuario;
+import br.edu.ifcvideira.controllers.views.LoginView;
+import br.edu.ifcvideira.utils.Conexao;
+
+public class MenuDao {
+	
+	LoginDao ldao = new LoginDao();
+	LoginView lv = new LoginView();
+	Usuario u = new Usuario();
+	
+	public void GravarDados(String login) throws SQLException{
+		
+		try {
+			String sql = "SELECT * FROM usuarios WHERE login_usuario='"+login+"'";
+			java.sql.PreparedStatement sqlPrep = Conexao.conectar().prepareStatement(sql);
+			int contador = 1;
+			sqlPrep.setInt(contador++, u.getCodigo());
+			sqlPrep.setString(contador++, u.getNome());
+			sqlPrep.setString(contador++, u.getCpf());
+			sqlPrep.setString(contador++, u.getRg());
+			sqlPrep.setString(contador++, u.getTelefone());
+			sqlPrep.setString(contador++, u.getCelular());
+			sqlPrep.setString(contador++, u.getLogin());
+			sqlPrep.setString(contador++, u.getSenha());
+			sqlPrep.setTimestamp(contador++, u.getDatacadastro());
+			sqlPrep.execute();
+			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "erro no sistema");
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+
+}

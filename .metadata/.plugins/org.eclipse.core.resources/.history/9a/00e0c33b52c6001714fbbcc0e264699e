@@ -1,0 +1,146 @@
+package br.edu.ifcvideirabeans;
+
+import java.sql.Timestamp;
+
+public class Cliente {
+	
+	private int id_cliente;
+	private String nome_cliente;
+	private String cpf_cliente;
+	private String telefone_cliente;
+	private String celular_cliente;
+	private Timestamp data_cadastro_cliente;
+	
+	public static int IdCliente;
+	public static String NomeCliente;
+	
+	
+	
+		public Cliente(){
+			
+		}
+
+		public static int getIdCliente() {
+			return IdCliente;
+		}
+
+		public static void setIdCliente(int idCliente) {
+			IdCliente = idCliente;
+		}
+
+
+
+
+
+		public static String getNomeCliente() {
+			return NomeCliente;
+		}
+
+
+
+
+
+		public static void setNomeCliente(String nomeCliente) {
+			NomeCliente = nomeCliente;
+		}
+
+
+
+
+
+		public int getId_cliente() {
+			return id_cliente;
+		}
+
+
+
+
+
+		public void setId_cliente(int id_cliente) {
+			this.id_cliente = id_cliente;
+		}
+
+
+
+
+
+		public String getNome_cliente() {
+			return nome_cliente;
+		}
+
+
+
+
+
+		public void setNome_cliente(String nome_cliente) {
+			this.nome_cliente = nome_cliente;
+		}
+
+
+
+
+
+		public String getCpf_cliente() {
+			return cpf_cliente;
+		}
+
+
+
+
+
+		public void setCpf_cliente(String cpf_cliente) {
+			this.cpf_cliente = cpf_cliente;
+		}
+
+
+
+
+
+		public String getTelefone_cliente() {
+			return telefone_cliente;
+		}
+
+
+
+
+
+		public void setTelefone_cliente(String telefone_cliente) {
+			this.telefone_cliente = telefone_cliente;
+		}
+
+
+
+
+
+		public String getCelular_cliente() {
+			return celular_cliente;
+		}
+
+
+
+
+
+		public void setCelular_cliente(String celular_cliente) {
+			this.celular_cliente = celular_cliente;
+		}
+
+
+
+
+
+		public Timestamp getData_cadastro_cliente() {
+			return data_cadastro_cliente;
+		}
+
+
+
+
+
+		public void setData_cadastro_cliente(Timestamp data_cadastro_cliente) {
+			this.data_cadastro_cliente = data_cadastro_cliente;
+		}
+		
+	
+	
+
+}

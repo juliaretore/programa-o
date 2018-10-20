@@ -1,0 +1,349 @@
+package br.edu.ifcvideira.controllers.views;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import br.edu.ifcvideira.DAOs.AquisoesDao;
+import br.edu.ifcvideira.beans.Aquisicao;
+import br.edu.ifcvideira.beans.Fornecedor;
+import br.edu.ifcvideira.beans.Produto;
+import br.edu.ifcvideira.beans.Usuario;
+
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+
+public class AquisicaoView extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField textQuantidade;
+	private JTextField textPNome;
+	private JTextField textPCodigo;
+	private JTable table;
+	JComboBox<String> cbFornecedor = new JComboBox<String>();
+	
+	private List<Object> aquisicao = new ArrayList<Object>();
+
+	Aquisicao a = new Aquisicao();
+	AquisoesDao aDao = new AquisoesDao();
+	Produto pr = new Produto();
+	Fornecedor f = new Fornecedor();
+	Usuario u = new Usuario();
+	
+	
+	java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
+	private JTextField textCodigo;
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AquisicaoView frame = new AquisicaoView();
+					frame.setVisible(true);
+					
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+			}
+		});
+	}
+
+	public AquisicaoView() {
+		addWindowListener(new WindowAdapter() {
+			public void windowOpened(WindowEvent arg0) {
+				atualizarTabela();
+				limpar();
+			}
+		});
+		
+		
+		setTitle("Aquisições");
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 435, 520);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		JLabel lblFornecedor = new JLabel("Fornecedor:");
+		lblFornecedor.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblFornecedor.setBounds(42, 10, 59, 20);
+		contentPane.add(lblFornecedor);
+
+		JLabel Produto = new JLabel("Produto:");
+		Produto.setHorizontalAlignment(SwingConstants.RIGHT);
+		Produto.setBounds(10, 41, 91, 20);
+		contentPane.add(Produto);
+
+		textQuantidade = new JTextField();
+		textQuantidade.setColumns(10);
+		textQuantidade.setBounds(117, 72, 149, 20);
+		contentPane.add(textQuantidade);
+
+		JButton cadastrar = new JButton("Cadastrar");
+		cadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+
+					a.setId_fornecedor_aquisicao(f);
+					a.setId_aquisicao(Integer.parseInt(textCodigo.getText()));
+					a.setQuantidade_aquisicao(Integer.parseInt(textQuantidade.getText()));
+					a.setData_aquisicao(time);
+					a.setValor_unitario_aquisicao(pr.getValor_unitario_produto()*a.getQuantidade_aquisicao());
+					a.setId_produto_aquisicao(pr);
+					u.setId_usuario(Usuario.IdUsuario);
+					a.setId_usuario_aquisicao(u);
+					
+					aDao.CadastrarAquisicao(a);
+
+
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+				atualizarTabela();
+				limpar();
+			} 
+		});
+		cadastrar.setBackground(SystemColor.controlHighlight);
+		cadastrar.setBounds(276, 41, 118, 21);
+		contentPane.add(cadastrar);
+
+		JLabel lblQuantidade = new JLabel("Quantidade:");
+		lblQuantidade.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblQuantidade.setBounds(10, 72, 91, 20);
+		contentPane.add(lblQuantidade);
+
+		JButton limpar = new JButton("Limpar");
+		limpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpar();
+			}
+		});
+		limpar.setBackground(SystemColor.controlHighlight);
+		limpar.setBounds(276, 72, 118, 21);
+		contentPane.add(limpar);
+
+		JLabel label_5 = new JLabel("Busca:");
+		label_5.setHorizontalAlignment(SwingConstants.RIGHT);
+		label_5.setBounds(181, 103, 46, 20);
+		contentPane.add(label_5);
+
+		JLabel label_8 = new JLabel("Aquisições::");
+		label_8.setBounds(10, 196, 156, 20);
+		contentPane.add(label_8);
+
+		JButton sair = new JButton("Sair");
+		sair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sair();
+			}
+		});
+		sair.setBackground(SystemColor.controlHighlight);
+		sair.setBounds(117, 445, 173, 39);
+		contentPane.add(sair);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 218, 415, 216);
+		contentPane.add(scrollPane);
+
+		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent arg0) {
+				setCamposFromTabela();
+			}
+		});
+		scrollPane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"C\u00F3digo", "Fornecedor", "Produto", "Quantidade", "Usu\u00E1rio", "Valor Unit\u00E1rio", "Data"
+			}
+		));
+		table.getColumnModel().getColumn(0).setPreferredWidth(40);
+		table.getColumnModel().getColumn(1).setPreferredWidth(65);
+		table.getColumnModel().getColumn(2).setPreferredWidth(45);
+		table.getColumnModel().getColumn(3).setPreferredWidth(68);
+		table.getColumnModel().getColumn(4).setPreferredWidth(48);
+		table.getColumnModel().getColumn(5).setPreferredWidth(60);
+		table.getColumnModel().getColumn(6).setPreferredWidth(60);
+
+		JLabel lblCodigo = new JLabel("Codigo:");
+		lblCodigo.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCodigo.setBounds(276, 10, 59, 20);
+		contentPane.add(lblCodigo);
+
+		textCodigo = new JTextField();
+		textCodigo.setEditable(false);
+		textCodigo.setColumns(10);
+		textCodigo.setBounds(345, 10, 46, 20);
+		contentPane.add(textCodigo);
+
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setForeground(Color.LIGHT_GRAY);
+		separator_1.setBounds(20, 103, 384, 2);
+		contentPane.add(separator_1);
+
+		JLabel label_6 = new JLabel("C\u00F3digo:");
+		label_6.setBounds(23, 134, 46, 20);
+		contentPane.add(label_6);
+		label_6.setHorizontalAlignment(SwingConstants.RIGHT);
+
+		textPCodigo = new JTextField();
+		textPCodigo.setBounds(79, 134, 315, 20);
+		contentPane.add(textPCodigo);
+		textPCodigo.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent e) {
+				TableRowSorter<TableModel> filtro = null;
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				filtro = new TableRowSorter<TableModel>(model);
+				table.setRowSorter(filtro);
+
+				if (textPCodigo.getText().length() == 0) {
+					filtro.setRowFilter(null);
+				} else {
+					filtro.setRowFilter(RowFilter.regexFilter(textPCodigo.getText(), 0));
+				}
+			}
+		});
+		textPCodigo.setColumns(10);
+
+		textPNome = new JTextField();
+		textPNome.setBounds(79, 165, 315, 20);
+		contentPane.add(textPNome);
+		textPNome.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				TableRowSorter<TableModel> filtro = null;
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				filtro = new TableRowSorter<TableModel>(model);
+				table.setRowSorter(filtro);
+
+				if (textPNome.getText().length() == 0) {
+					filtro.setRowFilter(null);
+				} else {
+					filtro.setRowFilter(RowFilter.regexFilter("(?i)" + textPNome.getText(), 1));
+				}
+
+			}
+		});
+		textPNome.setColumns(10);
+
+		JLabel label_7 = new JLabel("Nome:");
+		label_7.setBounds(20, 165, 46, 20);
+		contentPane.add(label_7);
+		label_7.setHorizontalAlignment(SwingConstants.RIGHT);
+
+		JSeparator separator = new JSeparator();
+		separator.setForeground(Color.LIGHT_GRAY);
+		separator.setBounds(20, 196, 384, 2);
+		contentPane.add(separator);
+		
+		
+		cbFornecedor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+		try {
+			aDao.fornecedor((String) cbFornecedor.getSelectedItem(), f);
+		} catch (Exception e) {
+			e.printStackTrace();JOptionPane.showMessageDialog(null, e.getMessage() );
+		}
+			
+			
+			}
+		});
+
+	
+		cbFornecedor.setModel(new DefaultComboBoxModel<String>(new String[] { "Selecione" }));
+		
+		
+		try {
+			for (int i = 0; i < aDao.ComboBoxFornecedor().size(); i++) {
+				cbFornecedor.addItem(aDao.ComboBoxFornecedor().get(i));
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+
+		cbFornecedor.setBounds(119, 10, 147, 20);
+		contentPane.add(cbFornecedor);
+		
+		JButton btnProcurarProdutos = new JButton("Procurar Produtos");
+		btnProcurarProdutos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ProdutoView frame = new ProdutoView();
+				frame.setVisible(true);
+				
+					
+			}
+		});
+		btnProcurarProdutos.setBounds(117, 40, 149, 23);
+		contentPane.add(btnProcurarProdutos);		
+	}
+
+	public void sair() {
+		MenuView frame = new MenuView();
+		frame.setVisible(true);
+		dispose();
+
+	}
+
+	public void setCamposFromTabela() {
+		textCodigo.setText(String.valueOf(table.getValueAt(table.getSelectedRow(), 0)));
+		textQuantidade.setText(String.valueOf(table.getValueAt(table.getSelectedRow(), 3)));
+	}
+
+	public void limpar() {
+		textQuantidade.setText(null);
+		try {
+			textCodigo.setText(String.valueOf(aDao.RetornarProximoCodigoAquisicao()));
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+
+	public void atualizarTabela() {
+		try {
+			aquisicao = aDao.buscarTodos();
+			DefaultTableModel model = (DefaultTableModel) table.getModel();
+			model.setNumRows(0);
+			for (int x = 0; x != aquisicao.size(); x++) {
+				model.addRow((Object[]) aquisicao.get(x));
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+	
+	public void ExportarDados (Produto p) {	
+		pr.setId_produto(p.getId_produto());
+		pr.setValor_unitario_produto(p.getValor_unitario_produto());
+	}
+	
+
+		
+	
+}

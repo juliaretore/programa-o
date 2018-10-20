@@ -1,0 +1,61 @@
+package br.edu.ifcvideira.DAOs;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import br.edu.ifcvideira.beans.Vendas;
+import br.edu.ifcvideira.utils.Conexao;
+
+public class PagamentoContaDao {
+	
+			public void Pagamento(Vendas v) throws Exception {
+			String sql = "UPDATE vendas SET situacao_venda='Pago' WHERE id_venda=?";
+			java.sql.PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
+			
+			int contador=1;
+			sqlPrep.setInt(contador++, v.getId_venda());
+			sqlPrep.execute();
+
+		}
+			
+			
+			public 	List <Object> Buscar() throws SQLException, Exception {
+				List<Object> tabela = new ArrayList<Object>();
+				try {
+					String sql = "SELECT DISTINCT nome_cliente, situacao_venda, id_venda_produtos_venda FROM clientes, vendas, produtos_venda WHERE situacao_venda='Em aberto'  AND clientes.id_cliente=vendas.id_cliente_venda AND vendas.id_venda=produtos_venda.id_venda_produtos_venda ORDER BY id_venda_produtos_venda";
+					java.sql.Statement state = Conexao.getInstance().createStatement();
+					ResultSet rs = state.executeQuery(sql);
+
+					while (rs.next()) {
+						Object[] linha = {rs.getString(1), rs.getString(2), rs.getInt(3) };
+						tabela.add(linha);
+					}
+					state.close();
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+				return tabela;
+			}
+			
+			public List <Object> Buscar2() throws SQLException, Exception {
+				List<Object> tabela = new ArrayList<Object>();
+
+				try {
+					String sql = "SELECT SUM(valor_unitario_produtos_venda) FROM produtos_venda  WHERE id_venda_produtos_venda IN (SELECT id_venda FROM vendas WHERE situacao_venda='Em aberto') GROUP BY id_venda_produtos_venda";
+					java.sql.Statement state = Conexao.getInstance().createStatement();
+					ResultSet rs = state.executeQuery(sql);
+					while (rs.next()) {
+						Object[] linha = {rs.getDouble(1)};
+						tabela.add(linha);						
+					}
+					state.close();
+				} catch (Exception e) {		
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+				return tabela;
+			}
+}

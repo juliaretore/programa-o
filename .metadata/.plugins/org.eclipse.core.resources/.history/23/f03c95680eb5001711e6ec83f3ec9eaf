@@ -1,0 +1,102 @@
+package br.edu.ifcvideira.DAOs;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
+import br.edu.ifcvideira.beans.Aquisicao;
+import br.edu.ifcvideira.controllers.views.AquisicoesView;
+import br.edu.ifcvideira.utils.Conexao;
+
+public class AquisoesDao {
+	AquisicoesView av = new AquisicoesView();
+
+	public void CadastrarAquisicao(Aquisicao a) throws SQLException, Exception {
+		try {
+			String sql = "INSERT INTO aquisicoes (id_aquisicao, id_fornecedor_aquisicao, id_produto_aquisicao, quantidade_aquisicao, id_usuario_aquisicao, valor_unitario_aquisicao, data_aquisicao) VALUES (?,?,?,?,?,?)";
+			java.sql.PreparedStatement sqlPrep = Conexao.conectar().prepareStatement(sql);
+			int contador = 1;
+			sqlPrep.setInt(contador++, a.getCodigoaquisicao());
+			sqlPrep.setInt(contador++, a.getFornecedor().getCodigo());
+			sqlPrep.setInt(contador++, a.getProduto().getidproduto());
+			sqlPrep.setInt(contador++, a.getQuantidade());
+			sqlPrep.setInt(contador++, a.getusuario().getCodigo());
+			sqlPrep.setDouble(contador++, a.getVlrunitarioaquisicao());
+			sqlPrep.setTimestamp(contador++, a.getDatacadastro());
+			sqlPrep.execute();
+
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
+	
+	
+	public List<Object> buscarTodos() throws SQLException, Exception{
+		List<Object> aquisicao = new ArrayList<Object>();
+		try {
+			String sql = "SELECT * FROM aquisicoes";
+			java.sql.Statement state = Conexao.conectar().createStatement();
+			ResultSet rs = state.executeQuery(sql);
+			
+			while (rs.next())
+			{
+				Object[] linha = {rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7)};
+				aquisicao.add(linha);
+			}
+			state.close();
+			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		return aquisicao;
+	}
+	
+	public int RetornarProximoCodigoAquisicao() throws Exception {
+		try{
+			String sql ="SELECT MAX(id_aquisicao)+1 AS codigo FROM aquisicoes ";
+			PreparedStatement sqlPrep = Conexao.conectar().prepareStatement(sql);
+			ResultSet rs = sqlPrep.executeQuery();
+			if (rs.next()){
+				return rs.getInt("codigo");
+			}else{
+				return 1;
+			}
+		} catch(Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return 1;
+		}
+	}
+	
+	
+
+	public List<Object> ComboBox() throws SQLException, Exception{
+		List<Object> fornecedor = new ArrayList<Object>();
+		try {
+			String sql = "SELECT nome_fornecedor FROM fornecedores";
+			java.sql.Statement state = Conexao.conectar().createStatement();
+			ResultSet rs = state.executeQuery(sql);
+			
+			while (rs.next())
+			{
+				Object[] linha = {rs.getString(1)};
+				fornecedor.add(linha);
+				
+
+			}
+			state.close();
+			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "ef");
+		}
+		return fornecedor;
+	}
+
+
+}

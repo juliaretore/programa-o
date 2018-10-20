@@ -1,0 +1,23 @@
+package br.transbus.classes;
+
+public class Viagem {
+	private String viagem;
+	
+	public Viagem(String viagem) {
+	this.viagem = viagem;
+	}
+
+	public String getviagem() {
+		return viagem;
+	}
+
+	public void setviagem(String viagem) {
+		this.viagem = viagem;
+	}
+
+
+	public void reservaOnibus(String nome) {
+	System.out.println("Viagem agendada para: " +viagem+ " para "+nome);
+	}
+
+}

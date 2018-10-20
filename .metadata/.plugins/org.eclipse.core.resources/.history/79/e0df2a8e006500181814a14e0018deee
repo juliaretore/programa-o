@@ -1,0 +1,41 @@
+package br.transbus.classes.Cliente;
+package br.transbus.classes.Onibus;
+
+
+
+public class Onibus {
+		private int idOnibus;
+		
+		private double valorPassagem;
+
+		public Onibus(int idOnibus, double valorDiaria) {
+		super();
+		this.idOnibus = idOnibus;
+		this.valorPassagem = valorDiaria;
+		}
+
+		
+
+		public int getIdOnibus() {
+			return idOnibus;
+		}
+
+		public void setIdOnibus(int idOnibus) {
+			this.idOnibus = idOnibus;
+		}
+
+		public double getValorPassagem() {
+			return valorPassagem;
+		}
+
+		public void setValorPassagem(double valorPassagem) {
+			this.valorPassagem = valorPassagem;
+		}
+
+
+
+		public void registraReserva(String nomeCliente, String nomeOnibus) {
+		System.out.println("O Onibus de numero" + this.idOnibus + "da companhia" +nomeOnibus+ "informa que a reserva para" +nomeCliente + "" + "foi realizada com sucesso!");
+		}
+
+}
