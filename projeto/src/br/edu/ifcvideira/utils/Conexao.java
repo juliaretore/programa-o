@@ -11,7 +11,7 @@ public class Conexao {
 	private final static String senha = "k94z2tt1";
 	private final static String host = "localhost";
 	private final static String porta = "5432";
-	private final static String banco = "pi";
+	private final static String banco = "projeto";
 	private final static String url = "jdbc:postgresql://" + host + ":" + porta + "/" + banco;
 	public static Connection conexao = null;
 	

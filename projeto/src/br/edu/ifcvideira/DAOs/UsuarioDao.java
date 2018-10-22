@@ -16,7 +16,7 @@ public class UsuarioDao {
 
 	public void CadastrarUsuario(Usuario u) throws SQLException, Exception{
 		try{
-			String sql = "INSERT INTO usuarios (id_usuario, nome_usuario, cpf_usuario, rg_usuario, telefone_usuario, celular_usuario, login_usuario, senha_usuario, data_cadastro_usuario) VALUES (?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO usuario (id_usuario, nome_usuario, cpf_usuario, rg_usuario, telefone_usuario, celular_usuario, login_usuario, senha_usuario, data_cadastro_usuario) VALUES (?,?,?,?,?,?,?,?,?)";
 			java.sql.PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
 			int contador = 1;
 			sqlPrep.setInt(contador++, u.getId());
@@ -42,7 +42,7 @@ public class UsuarioDao {
 	
 	public void AlterarUsuario(Usuario u) throws Exception {
 		try{
-			String sql = "UPDATE usuarios SET nome_usuario=?, cpf_usuario=?, rg_usuario=?, telefone_usuario=?, celular_usuario=?, login_usuario=?, senha_usuario=?, data_cadastro_usuario=? WHERE id_usuario=?";
+			String sql = "UPDATE usuario SET nome_usuario=?, cpf_usuario=?, rg_usuario=?, telefone_usuario=?, celular_usuario=?, login_usuario=?, senha_usuario=?, data_cadastro_usuario=? WHERE id_usuario=?";
 			PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
 			int contador = 1;
 			
@@ -67,7 +67,7 @@ public class UsuarioDao {
 	
 	public void DeletarUsuario(Usuario u) throws Exception{
 		try{
-			String sql = "DELETE FROM usuarios WHERE id_usuario=? ";
+			String sql = "DELETE FROM usuario WHERE id_usuario=? ";
 			PreparedStatement sqlPrep = (PreparedStatement) Conexao.getInstance().prepareStatement(sql);
 			sqlPrep.setInt(1, u.getId());
 			sqlPrep.execute();
@@ -82,7 +82,7 @@ public class UsuarioDao {
 	public List<Object> BuscarTodos() throws SQLException, Exception{
 		List<Object> usuario = new ArrayList<Object>();
 		try {
-			String sql = "SELECT id_usuario, nome_usuario, cpf_usuario, rg_usuario, telefone_usuario, celular_usuario, login_usuario, senha_usuario, TO_CHAR(data_cadastro_usuario, 'DD/MM/YYYY') FROM usuarios";
+			String sql = "SELECT id_usuario, nome_usuario, cpf_usuario, rg_usuario, telefone_usuario, celular_usuario, login_usuario, senha_usuario, TO_CHAR(data_cadastro_usuario, 'DD/MM/YYYY') FROM usuario";
 			java.sql.Statement state = Conexao.getInstance().createStatement();
 			ResultSet rs = state.executeQuery(sql);
 			
@@ -102,7 +102,7 @@ public class UsuarioDao {
 	
 	public int RetornarProximoCodigoUsuario() throws Exception {
 		try{
-			String sql ="SELECT COALESCE(MAX(id_usuario), 0)+1 AS codigo FROM usuarios";
+			String sql ="SELECT COALESCE(MAX(id_usuario), 0)+1 AS codigo FROM usuario";
 			PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
 			ResultSet rs = sqlPrep.executeQuery();
 			if (rs.next()){

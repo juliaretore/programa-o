@@ -8,8 +8,6 @@ import br.edu.ifcvideira.beans.Usuario;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Toolkit;
-
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -18,6 +16,7 @@ public class MenuView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textusuario;
+	private JButton btnCadastrarArvores;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -26,7 +25,6 @@ public class MenuView extends JFrame {
 				try {
 					MenuView frame = new MenuView();
 					frame.setVisible(true);
-
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,14 +35,6 @@ public class MenuView extends JFrame {
 
 
 	public MenuView() {
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\WIN\\Desktop\\oi\\oioi\\src\\br\\edu\\ifcvideira\\img\\menu.png"));
-			
-		ImageIcon img = new ImageIcon (lblNewLabel.getIcon().toString());  
-        img.setImage(img.getImage().getScaledInstance(1365, 700, 120));
-        lblNewLabel.setIcon(img);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
-
 		setTitle("Menu");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1367, 730);
@@ -54,7 +44,7 @@ public class MenuView extends JFrame {
 		contentPane.setLayout(null);
 		
 		
-		JButton btnUsuraios = new JButton("Usu\u00E1rios");
+		JButton btnUsuraios = new JButton("Cadastrar Usu\u00E1rio");
 		btnUsuraios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				UsuarioView frame = new UsuarioView();
@@ -63,10 +53,10 @@ public class MenuView extends JFrame {
 				
 			}
 		});
-		btnUsuraios.setBounds(31, 534, 256, 67);
+		btnUsuraios.setBounds(409, 330, 256, 67);
 		contentPane.add(btnUsuraios);
 		
-		
+	
 		textusuario = new JTextField();
 		textusuario.setText(Usuario.getLoginUsuario());
 		textusuario.setEditable(false);
@@ -74,13 +64,32 @@ public class MenuView extends JFrame {
 		contentPane.add(textusuario);
 		textusuario.setColumns(10);
 		
-		lblNewLabel.setBounds(-10, 0, 1360, 691);
-		contentPane.add(lblNewLabel);
+		JButton btnCadastrarPropriedade = new JButton("Cadastrar Propriedade");
+		btnCadastrarPropriedade.setBounds(409, 420, 256, 67);
+		btnCadastrarPropriedade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PropriedadeView frame = new PropriedadeView();
+				frame.setVisible(true);
+				frame.setLocationRelativeTo(null);
+				
+			}
+		});
+		contentPane.add(btnCadastrarPropriedade);
+		
+		btnCadastrarArvores = new JButton("Cadastrar \u00C1rvores");
+		btnCadastrarArvores.setBounds(409, 508, 256, 67);
+		btnCadastrarArvores.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PropriedadeView frame = new PropriedadeView();
+				frame.setVisible(true);
+				frame.setLocationRelativeTo(null);
+				
+			}
+		});		
+		contentPane.add(btnCadastrarArvores);
 		
     
 		
 
 	}
-	
-	
 }
