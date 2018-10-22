@@ -16,7 +16,7 @@ public class LoginDao {
 	public List<String> ValidarUsuario() throws SQLException{
 		List<String> login = new ArrayList<String>();
 		try {
-			String sql = "SELECT login_usuario FROM usuarios";
+			String sql = "SELECT login_usuario FROM usuario";
 			java.sql.Statement state = Conexao.getInstance().createStatement();
 			ResultSet rs = state.executeQuery(sql);
 			
@@ -34,7 +34,7 @@ public class LoginDao {
 	public List<String> ValidarSenha(String usuario) throws SQLException{
 		List<String> senha = new ArrayList<String>();
 		try {
-			String sql = "SELECT  senha_usuario FROM usuarios WHERE login_usuario='"+usuario+"'";
+			String sql = "SELECT  senha_usuario FROM usuario WHERE login_usuario='"+usuario+"'";
 			java.sql.Statement state = Conexao.getInstance().createStatement();
 			ResultSet rs = state.executeQuery(sql);		
 			while (rs.next()){
@@ -50,7 +50,7 @@ public class LoginDao {
 	
 	public void RetornarIdUsuario(String login) throws SQLException, Exception {
 		try {
-		String sql = "SELECT id_usuario FROM usuarios WHERE login_usuario='"+login+"'";
+		String sql = "SELECT id_usuario FROM usuario WHERE login_usuario='"+login+"'";
 		java.sql.Statement state = Conexao.getInstance().createStatement();
 		ResultSet rs = state.executeQuery(sql);
 		while (rs.next()) {
