@@ -28,6 +28,14 @@ import javax.swing.event.CaretListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
+import br.edu.ifcvideira.DAOs.AreaReflorestadaDao;
+import br.edu.ifcvideira.DAOs.ArvoreDao;
+import br.edu.ifcvideira.DAOs.PropriedadeDao;
+import br.edu.ifcvideira.beans.AreaReflorestada;
+import br.edu.ifcvideira.beans.Propriedade;
+import br.edu.ifcvideira.beans.Usuario;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -38,9 +46,17 @@ public class PropriedadeView extends JFrame {
 	private JPanel contentPane;
     public static JTextField textFieldIdUsuario;
 	private static final long serialVersionUID = 1L;
-	private JTextField textPCodigo;
+	private JTextField textFieldObs;
 	
-    List<Object> aquisicao = new ArrayList<Object>();
+    List<Object> arvore = new ArrayList<Object>();
+    Propriedade p = new Propriedade();
+    AreaReflorestada a = new AreaReflorestada();
+    AreaReflorestadaDao ard = new AreaReflorestadaDao();
+    ArvoreDao ad = new ArvoreDao();
+    PropriedadeDao pd = new PropriedadeDao();
+    Usuario u = new Usuario();
+
+
  
 	
 	java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
@@ -65,6 +81,7 @@ public class PropriedadeView extends JFrame {
 					PropriedadeView frame = new PropriedadeView();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -85,6 +102,22 @@ public class PropriedadeView extends JFrame {
 			public void windowOpened(WindowEvent arg0) {
 				atualizarTabela();
 				limpar();
+				try {
+					textCodigo.setText(String.valueOf(pd.RetornarProximoCodigoPropriedade()));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					textFieldCodigoPropriedade.setText(String.valueOf(pd.RetornarProximoCodigoPropriedade()));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+				textFieldIdUsuario.setText(String.valueOf(Usuario.IdUsuario));
+				textFieldNomeUsuario.setText(String.valueOf(Usuario.loginUsuarioStatic));
+
 			}
 			
 		});
@@ -150,10 +183,10 @@ public class PropriedadeView extends JFrame {
 		contentPane.add(lblPropriedade_1);
 		lblPropriedade_1.setHorizontalAlignment(SwingConstants.RIGHT);
 
-		textPCodigo = new JTextField();
-		textPCodigo.setBounds(121, 328, 139, 20);
-		contentPane.add(textPCodigo);
-		textPCodigo.addCaretListener(new CaretListener() {
+		textFieldObs = new JTextField();
+		textFieldObs.setBounds(121, 328, 139, 20);
+		contentPane.add(textFieldObs);
+		textFieldObs.addCaretListener(new CaretListener() {
 			public void caretUpdate(CaretEvent e) {
 				
 
@@ -162,16 +195,16 @@ public class PropriedadeView extends JFrame {
 						filtro = new TableRowSorter<TableModel>(model);  
 						table.setRowSorter(filtro);
 						
-						if (textPCodigo.getText().length() == 0) {
+						if (textFieldObs.getText().length() == 0) {
 							filtro.setRowFilter(null);
 						} else {  
-							filtro.setRowFilter(RowFilter.regexFilter(textPCodigo.getText(), 0));  
+							filtro.setRowFilter(RowFilter.regexFilter(textFieldObs.getText(), 0));  
 						}  
 					}
 				
 			
 		});
-		textPCodigo.setColumns(10);
+		textFieldObs.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 410, 218, 157);
@@ -183,7 +216,7 @@ public class PropriedadeView extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"C\u00F3digo", "Nome", "Valor Unit\u00E1rio"
+					"iD", "Nome", "Descricao", "Status", "Necessidades"
 			}
 		));
 		table.getColumnModel().getColumn(0).setPreferredWidth(41);
@@ -204,20 +237,16 @@ public class PropriedadeView extends JFrame {
 			JComboBox<String> comboBoxTipo = new JComboBox<String>();
 			comboBoxTipo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					if (comboBoxTipo.getSelectedItem().equals("À vista")){
-						textFieldEndereco.setText("Pago");
-						textFieldIdUsuario.setText("0");
-						textFieldNomeUsuario.setText("Compra à vista");
+					if (comboBoxTipo.getSelectedItem().equals("Rural")){
+						p.setZona("Rural");
 						
 					}else{
-						textFieldEndereco.setText("Em aberto");
-						textFieldIdUsuario.setText("");
-						textFieldNomeUsuario.setText("");
+						p.setZona("Urbana");
 					}
 					
 				}
 			});
-			comboBoxTipo.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Rural", "Urbana"}));
+			comboBoxTipo.setModel(new DefaultComboBoxModel<String>(new String[] {"Selecione", "Rural", "Urbana"}));
 			comboBoxTipo.setBounds(120, 167, 183, 20);
 			contentPane.add(comboBoxTipo);
 			
@@ -225,15 +254,13 @@ public class PropriedadeView extends JFrame {
 			buttonIncluirÁrvores.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {					
 					if (table.getSelectedRow() != -1){ 
-								List<Object> produtosv = new ArrayList<Object>();
+								List<Object> arvorev = new ArrayList<Object>();
 
-								Object[]linha = { table.getValueAt(table.getSelectedRow(), 0), table.getValueAt(table.getSelectedRow(), 1),  table.getValueAt(table.getSelectedRow(), 2)};
-								produtosv.add(linha);
-								valortotal+=(Double.parseDouble((String) table.getValueAt(table.getSelectedRow(), 2)));
-		
+								Object[]linha = { table.getValueAt(table.getSelectedRow(), 0), table.getValueAt(table.getSelectedRow(), 1),  table.getValueAt(table.getSelectedRow(), 2), table.getValueAt(table.getSelectedRow(), 3), table.getValueAt(table.getSelectedRow(), 4)};
+								arvorev.add(linha);		
 								DefaultTableModel model = (DefaultTableModel) table_1.getModel();
-								for (int x=0; x!=produtosv.size(); x++){
-									model.addRow((Object[]) produtosv.get(x));
+								for (int x=0; x!=arvorev.size(); x++){
+									model.addRow((Object[]) arvorev.get(x));
 								}
 							} 
 				
@@ -269,23 +296,36 @@ public class PropriedadeView extends JFrame {
 				new Object[][] {
 				},
 				new String[] {
-					"C\u00F3digo", "Nome", "Valor Unit\u00E1rio"
+						"iD", "Nome", "Descricao", "Status", "Necessidades"
 				}
 			));
 			scrollPane_1.setViewportView(table_1);
-			
 			JButton button = new JButton("Cadastrar");
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					
 					// cadastrar venda
-																		
+					p.setEndereco(String.valueOf(textFieldEndereco.getText()));
+					p.setMetragem(Float.parseFloat(textFieldEndereco.getText()));
+					p.setId(Integer.parseInt(textCodigo.getText()));
+					u.setId(Integer.parseInt(textFieldIdUsuario.getText()));
+					p.setIdCodigoUsuario(u);
+					
+					a.setObservacao(String.valueOf(textFieldObs.getText()));
+					a.setQuantidade(Integer.parseInt(textFieldQntPlantas.getText()));
+					a.setPropriedade(p);
+					a.setTamanhoP(Float.parseFloat(textFieldTamanhoP.getText()));
+					a.setTamanhoR(Float.parseFloat(textFieldTamanhoR.getText()));
+					
+					
 					try {
 					} catch (Exception e) {
 						JOptionPane.showMessageDialog(null, e.getMessage());
 					}
 	
 				}
+
+			
 			});
 			button.setBounds(265, 592, 99, 23);
 			contentPane.add(button);
@@ -339,7 +379,6 @@ public class PropriedadeView extends JFrame {
 			
 			textFieldTamanhoP = new JTextField();
 			textFieldTamanhoP.setText("");
-			textFieldTamanhoP.setEditable(false);
 			textFieldTamanhoP.setColumns(10);
 			textFieldTamanhoP.setBounds(196, 199, 79, 20);
 			contentPane.add(textFieldTamanhoP);
@@ -365,6 +404,16 @@ public class PropriedadeView extends JFrame {
 			JComboBox<String> comboBoxTipoR = new JComboBox<String>();
 			comboBoxTipoR.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Florestamento", "Reflorestamento"}));
 			comboBoxTipoR.setBounds(367, 295, 117, 20);
+			comboBoxTipoR.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					if (comboBoxTipoR.getSelectedItem().equals("Florestamento")){
+						a.setTipo("Florestamento");
+						
+					}else{
+						a.setTipo("Reflorestamento");
+					}
+				}
+			});
 			contentPane.add(comboBoxTipoR);
 			
 			JLabel lblTipo_1 = new JLabel("Tipo:");
@@ -376,6 +425,15 @@ public class PropriedadeView extends JFrame {
 			JComboBox<String> comboBoxObjetivo = new JComboBox<String>();
 			comboBoxObjetivo.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Fins comerciais", "Fins ecol\u00F3gicos"}));
 			comboBoxObjetivo.setBounds(367, 331, 117, 20);
+			comboBoxObjetivo.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					if (comboBoxObjetivo.getSelectedItem().equals("Fins comerciais")){
+						a.setObjetivo("Fins comerciais");
+					}else{
+						a.setObjetivo("Fins ecológicos");
+					}
+				}
+			});
 			contentPane.add(comboBoxObjetivo);
 			
 			JLabel lblObjetivo = new JLabel("Objetivo:");
@@ -424,17 +482,17 @@ public void limpar() {
 
 public void atualizarTabela() {
 	try {
+	arvore = ad.BuscarTodos();
 	DefaultTableModel model = (DefaultTableModel) table.getModel();
 	model.setNumRows(0);
-for (int x=0; x!=produto.size(); x++)
+for (int x=0; x!=arvore.size(); x++)
 	{
-		model.addRow((Object[]) produto.get(x));
+		model.addRow((Object[]) arvore.get(x));
 	}
 } catch (Exception e) {
 	JOptionPane.showMessageDialog(null, e.getMessage());
 }}
 }
-
 
 		
 		

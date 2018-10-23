@@ -96,7 +96,7 @@ public class PropriedadeDao {
 
 
 
-public int RetornarProximoCodigoFornecedor() throws Exception {
+public int RetornarProximoCodigoPropriedade() throws Exception {
 	try{
 		String sql ="SELECT COALESCE(MAX(id_propriedade), 0)+1 AS codigo FROM propriedade";
 		PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);

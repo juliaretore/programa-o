@@ -6,8 +6,15 @@ public class Arvore {
 	private String nome;
 	private String status;
 	private String necessidades;
+	private String Descricao;
 	
 	
+	public String getDescricao() {
+		return Descricao;
+	}
+	public void setDescricao(String descricao) {
+		Descricao = descricao;
+	}
 	public int getId() {
 		return id;
 	}

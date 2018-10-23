@@ -14,7 +14,7 @@ import br.edu.ifcvideira.utils.Conexao;
 
 public class ArvoreDao {
 
-	public void CadastrarUsuario(Arvore a) throws SQLException, Exception{
+	public void CadastrarArvore(Arvore a) throws SQLException, Exception{
 		try{
 			String sql = "INSERT INTO arvore (id_arvore, nome_arvore, descricao_arvore, status_arvore, necessidades_arvore) VALUES (?,?,?,?,?)";
 			
@@ -23,6 +23,7 @@ public class ArvoreDao {
 			
 			sqlPrep.setInt(contador++, a.getId());
 			sqlPrep.setString(contador++, a.getNome());
+			sqlPrep.setString(contador++, a.getDescricao());
 			sqlPrep.setString(contador++, a.getStatus());
 			sqlPrep.setString(contador++, a.getNecessidades());
 			sqlPrep.execute();
@@ -37,13 +38,14 @@ public class ArvoreDao {
 	
 	
 	
-	public void AlterarUsuario(Arvore a) throws Exception {
+	public void AlterarArvore(Arvore a) throws Exception {
 		try{
-			String sql = "UPDATE arvore SET id_arvore=?, nome_arvore=?, descricao_arvore=?, status_arvore=?, necessidades_arvore=? WHERE id_arvore=?";
+			String sql = "UPDATE arvore SET nome_arvore=?, descricao_arvore=?, status_arvore=?, necessidades_arvore=? WHERE id_arvore=?";
 			PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
 			int contador = 1;
 			
 			sqlPrep.setString(contador++, a.getNome());
+			sqlPrep.setString(contador++, a.getDescricao());
 			sqlPrep.setString(contador++, a.getStatus());
 			sqlPrep.setString(contador++, a.getNecessidades());
 			sqlPrep.setInt(contador++, a.getId());
@@ -57,7 +59,7 @@ public class ArvoreDao {
 	
 	
 	
-	public void DeletarUsuario(Arvore a) throws Exception{
+	public void DeletarArvore(Arvore a) throws Exception{
 		try{
 			String sql = "DELETE FROM arvore WHERE id_arvore=? ";
 			PreparedStatement sqlPrep = (PreparedStatement) Conexao.getInstance().prepareStatement(sql);
@@ -92,9 +94,9 @@ public class ArvoreDao {
 	}
 	
 	
-	public int RetornarProximoCodigoUsuario() throws Exception {
+	public int RetornarProximoCodigoArvore() throws Exception {
 		try{
-			String sql ="SELECT COALESCE(MAX(id_usuario), 0)+1 AS codigo FROM usuarios";
+			String sql ="SELECT COALESCE(MAX(id_arvore), 0)+1 AS codigo FROM arvore";
 			PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
 			ResultSet rs = sqlPrep.executeQuery();
 			if (rs.next()){

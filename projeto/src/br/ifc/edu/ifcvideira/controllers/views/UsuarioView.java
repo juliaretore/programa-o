@@ -83,7 +83,6 @@ public class UsuarioView extends JFrame {
 			}
 		});
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\WIN\\Desktop\\oi\\oioi\\src\\br\\edu\\ifcvideira\\img\\base.png"));
 		
 		ImageIcon img = new ImageIcon (lblNewLabel.getIcon().toString());  
 		lblNewLabel.setIcon(img);

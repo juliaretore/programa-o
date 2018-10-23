@@ -17,6 +17,8 @@ public class MenuView extends JFrame {
 	private JPanel contentPane;
 	private JTextField textusuario;
 	private JButton btnCadastrarArvores;
+	
+	PropriedadeView p = new PropriedadeView();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -67,8 +69,10 @@ public class MenuView extends JFrame {
 		JButton btnCadastrarPropriedade = new JButton("Cadastrar Propriedade");
 		btnCadastrarPropriedade.setBounds(409, 420, 256, 67);
 		btnCadastrarPropriedade.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				PropriedadeView frame = new PropriedadeView();
+		public void actionPerformed(ActionEvent arg0) {
+
+			
+			PropriedadeView frame = new PropriedadeView();
 				frame.setVisible(true);
 				frame.setLocationRelativeTo(null);
 				
@@ -80,7 +84,7 @@ public class MenuView extends JFrame {
 		btnCadastrarArvores.setBounds(409, 508, 256, 67);
 		btnCadastrarArvores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PropriedadeView frame = new PropriedadeView();
+				ArvoreView frame = new ArvoreView();
 				frame.setVisible(true);
 				frame.setLocationRelativeTo(null);
 				

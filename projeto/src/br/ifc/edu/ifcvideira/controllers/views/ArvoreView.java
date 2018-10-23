@@ -13,7 +13,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -31,6 +30,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.text.MaskFormatter;
+
+import br.edu.ifcvideira.DAOs.ArvoreDao;
 import br.edu.ifcvideira.beans.Arvore;
 import javax.swing.ImageIcon;
 import java.awt.Font;
@@ -50,6 +51,7 @@ public class ArvoreView extends JFrame {
 	private List<Object> fornecedor = new ArrayList<Object>();
 	
 	Arvore a = new Arvore();	
+	ArvoreDao ad = new ArvoreDao();
 	
 	java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
 	
@@ -77,10 +79,17 @@ public class ArvoreView extends JFrame {
 			public void windowOpened(WindowEvent arg0) {
 				atualizarTabela();
 				limpar();
+				try {
+					textCodigo.setText(String.valueOf(ad.RetornarProximoCodigoArvore()));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
 		});
         
-		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("logo.png")));
+
 
 		setTitle("Cadastro Fornecedores");
 		setResizable(false);
@@ -120,9 +129,11 @@ public class ArvoreView extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRow() != -1){
 					try {
-						
-						
-						
+						a.setId(Integer.parseInt(textCodigo.getText()));
+						a.setNecessidades(textFieldNecessidades.getText());
+						a.setNome(textNome.getText());
+						a.setDescricao(textFieldDescricao.getText());
+						ad.AlterarArvore(a);
 		
 					} catch (Exception e1) {
 						JOptionPane.showMessageDialog(null, e1.getMessage());
@@ -143,7 +154,11 @@ public class ArvoreView extends JFrame {
 		cadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-
+					a.setId(Integer.parseInt(textCodigo.getText()));
+					a.setNecessidades(textFieldNecessidades.getText());
+					a.setNome(textNome.getText());
+					a.setDescricao(textFieldDescricao.getText());
+					ad.CadastrarArvore(a);
 				
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
@@ -177,8 +192,8 @@ public class ArvoreView extends JFrame {
 							JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options3, options3[0]) == 0){
 						try {
 						
-							
-						
+							a.setId(Integer.parseInt(textCodigo.getText()));
+							ad.DeletarArvore(a);
 							atualizarTabela();
 							limpar();
 							
@@ -232,7 +247,8 @@ public class ArvoreView extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"C\u00F3digo", "Nome", "CNPJ"
+				"iD", "Nome", "Descricao", "Status", "Necessidades"
+				
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
@@ -348,6 +364,12 @@ public class ArvoreView extends JFrame {
 		JComboBox<String> comboBoxStatus = new JComboBox<String>();
 		comboBoxStatus.setModel(new DefaultComboBoxModel(new String[] {"Selecione", "Adequada", "Inadequada"}));
 		comboBoxStatus.setBounds(138, 158, 117, 20);
+		comboBoxStatus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				a.setStatus((String)comboBoxStatus.getSelectedItem());
+				
+			}
+		});
 		contentPane.add(comboBoxStatus);
 	}
 
@@ -359,11 +381,11 @@ public class ArvoreView extends JFrame {
 	public void setCamposFromTabela() {
 		textCodigo.setText(String.valueOf(table.getValueAt(table.getSelectedRow(), 0)));
 		textNome.setText(String.valueOf(table.getValueAt(table.getSelectedRow(), 1)));	
-	
+		textFieldDescricao.setText(String.valueOf(table.getValueAt(table.getSelectedRow(), 2)));
+		textFieldNecessidades.setText(String.valueOf(table.getValueAt(table.getSelectedRow(), 4)));
 	}
 
 	public void limpar() {
-		
 		textNome.setText(null);
 		textFieldNecessidades.setText(null);
 		textFieldDescricao.setText(null);
@@ -374,17 +396,19 @@ public class ArvoreView extends JFrame {
 		}
 	}
 
-	public void atualizarTabela() {
-		try {
-			DefaultTableModel model = (DefaultTableModel) table.getModel();
-			model.setNumRows(0);
-		for (int x=0; x!=fornecedor.size(); x++)
-			{
-			
-				model.addRow((Object[]) fornecedor.get(x));
-			}
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e.getMessage());
+
+
+public void atualizarTabela() {
+	try {
+		List<Object> arvore = ad.BuscarTodos();
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setNumRows(0);
+		for (int x = 0; x != arvore.size(); x++) {
+			model.addRow((Object[]) arvore.get(x));
 		}
+	} catch (Exception e) {
+		JOptionPane.showMessageDialog(null, e.getMessage());
 	}
+}
+
 }

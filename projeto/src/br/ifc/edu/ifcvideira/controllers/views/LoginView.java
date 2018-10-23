@@ -99,8 +99,7 @@ public class LoginView extends JFrame {
 								dispose ();
 										}else {
 											JOptionPane.showMessageDialog(null, "Login incorreto");
-										}
-									}else {
+										}									}else {
 										JOptionPane.showMessageDialog(null, "Login incorreto");
 									}
 								} catch (SQLException e) {					
