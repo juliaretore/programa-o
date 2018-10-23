@@ -33,6 +33,7 @@ import br.edu.ifcvideira.DAOs.AreaReflorestadaDao;
 import br.edu.ifcvideira.DAOs.ArvoreDao;
 import br.edu.ifcvideira.DAOs.PropriedadeDao;
 import br.edu.ifcvideira.beans.AreaReflorestada;
+import br.edu.ifcvideira.beans.Arvore;
 import br.edu.ifcvideira.beans.Propriedade;
 import br.edu.ifcvideira.beans.Usuario;
 
@@ -55,6 +56,7 @@ public class PropriedadeView extends JFrame {
     ArvoreDao ad = new ArvoreDao();
     PropriedadeDao pd = new PropriedadeDao();
     Usuario u = new Usuario();
+    Arvore aa = new Arvore();
 
 
  
@@ -186,24 +188,6 @@ public class PropriedadeView extends JFrame {
 		textFieldObs = new JTextField();
 		textFieldObs.setBounds(121, 328, 139, 20);
 		contentPane.add(textFieldObs);
-		textFieldObs.addCaretListener(new CaretListener() {
-			public void caretUpdate(CaretEvent e) {
-				
-
-						TableRowSorter<TableModel> filtro = null;  
-						DefaultTableModel model = (DefaultTableModel) table.getModel();  
-						filtro = new TableRowSorter<TableModel>(model);  
-						table.setRowSorter(filtro);
-						
-						if (textFieldObs.getText().length() == 0) {
-							filtro.setRowFilter(null);
-						} else {  
-							filtro.setRowFilter(RowFilter.regexFilter(textFieldObs.getText(), 0));  
-						}  
-					}
-				
-			
-		});
 		textFieldObs.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -304,19 +288,42 @@ public class PropriedadeView extends JFrame {
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					
-					// cadastrar venda
+					// cadastrar propriedade
 					p.setEndereco(String.valueOf(textFieldEndereco.getText()));
-					p.setMetragem(Float.parseFloat(textFieldEndereco.getText()));
+					p.setMetragem(Float.parseFloat(textFieldMetragem.getText()));
 					p.setId(Integer.parseInt(textCodigo.getText()));
 					u.setId(Integer.parseInt(textFieldIdUsuario.getText()));
 					p.setIdCodigoUsuario(u);
 					
-					a.setObservacao(String.valueOf(textFieldObs.getText()));
-					a.setQuantidade(Integer.parseInt(textFieldQntPlantas.getText()));
-					a.setPropriedade(p);
 					a.setTamanhoP(Float.parseFloat(textFieldTamanhoP.getText()));
 					a.setTamanhoR(Float.parseFloat(textFieldTamanhoR.getText()));
 					
+					float tamanhop;
+					float tamanhor;
+					tamanhop=Float.parseFloat(textFieldTamanhoP.getText());
+					tamanhor=Float.parseFloat(textFieldTamanhoR.getText());
+
+					if(tamanhor<(tamanhop/10)) {
+						p.setMulta(2000);
+					}else {
+						p.setMulta(0);
+					}try {
+						pd.CadastrarPropriedade(p);
+					} catch (Exception e1) {
+						e1.printStackTrace();}
+					
+					for (int i=0; i<table_1.getModel().getRowCount(); i++) {
+						a.setObservacao(String.valueOf(textFieldObs.getText()));
+						a.setQuantidade(Integer.parseInt(textFieldQntPlantas.getText()));
+						a.setPropriedade(p);
+						aa.setId((Integer.parseInt((String) table_1.getValueAt(i, 0))));
+						a.setArvore(aa);
+						try {
+							ard.CadastrarArea(a);
+						} catch (Exception e) {
+							JOptionPane.showMessageDialog(null, e.getMessage());
+						}atualizarTabela();
+					}
 					
 					try {
 					} catch (Exception e) {

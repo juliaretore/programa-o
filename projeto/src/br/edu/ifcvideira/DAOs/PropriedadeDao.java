@@ -14,7 +14,7 @@ import br.edu.ifcvideira.utils.Conexao;
 public class PropriedadeDao {
 
 	
-	public void CadastrarFornecedor(Propriedade p) throws SQLException, Exception{
+	public void CadastrarPropriedade(Propriedade p) throws SQLException, Exception{
 		try{
 			String sql = "INSERT INTO propriedade (id_propriedade, id_usuario_propriedade, endereco_propriedade, metragem_propiedade, zona_propriedade, multa_propriedade) VALUES (?,?,?,?,?,?)";
 			java.sql.PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
@@ -39,7 +39,7 @@ public class PropriedadeDao {
 	
 	
 	
-	public void AlterarFornecedor(Propriedade p) throws Exception {
+	public void AlterarPropriedade(Propriedade p) throws Exception {
 		try{
 			String sql = "UPDATE propriedade SET id_usuario_propriedade=?, endereco_propriedade=?, metragem_propiedade=?, zona_propriedade=?, multa_propriedade=? WHERE id_propriedade=?";
 			PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
@@ -60,7 +60,7 @@ public class PropriedadeDao {
 	
 	
 	
-	public void DeletarFornecedor(Propriedade p) throws Exception{
+	public void DeletarPropriedade(Propriedade p) throws Exception{
 		try{
 			String sql = "DELETE FROM propriedade WHERE id_propriedade=? ";
 			PreparedStatement sqlPrep = (PreparedStatement) Conexao.getInstance().prepareStatement(sql);

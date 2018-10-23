@@ -8,7 +8,7 @@ import br.edu.ifcvideira.beans.AreaReflorestada;
 import br.edu.ifcvideira.utils.Conexao;
 
 public class AreaReflorestadaDao {
-	public void CadastrarVenda(AreaReflorestada a) throws SQLException, Exception {
+	public void CadastrarArea(AreaReflorestada a) throws SQLException, Exception {
 		try {
 			String sql = "INSERT INTO areareflorestada (propriedade_area, tamanho_propriedade_area, tamanho_refloresta_area, quantidade_plantas_area, tipo_area, objetivo_area, observacao_area, arvore_plantada_area ) VALUES (?,?,?,?,?,?,?,?)";
 			java.sql.PreparedStatement sqlPrep = Conexao.getInstance().prepareStatement(sql);
