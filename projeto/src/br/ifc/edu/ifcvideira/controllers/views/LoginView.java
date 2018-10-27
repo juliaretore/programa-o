@@ -17,7 +17,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.ImageIcon;
 
 public class LoginView extends JFrame {
 
@@ -31,7 +30,6 @@ public class LoginView extends JFrame {
 
 	private JPasswordField tfsenha;
 	private JButton btnSair;
-	private JLabel lblNewLabel;
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -48,13 +46,6 @@ public class LoginView extends JFrame {
 
 	public LoginView() {
 		
-		lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\WIN\\Desktop\\oi\\oioi\\src\\br\\edu\\ifcvideira\\img\\login.png"));
-
-		ImageIcon img = new ImageIcon (lblNewLabel.getIcon().toString());  
-		lblNewLabel.setIcon(img);
-        img.setImage(img.getImage().getScaledInstance(445, 250, 100));
-		
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 256);
@@ -65,7 +56,7 @@ public class LoginView extends JFrame {
 		
 		
 		tflogin = new JTextField();
-		tflogin.setBounds(100, 40, 101, 23);
+		tflogin.setBounds(100, 40, 230, 23);
 		contentPane.add(tflogin);
 		tflogin.setColumns(10);
 		
@@ -77,8 +68,7 @@ public class LoginView extends JFrame {
 							
 								try {
 									if(ld.ValidarUsuario().contains(tflogin.getText())) {
-
-		 								if(ld.ValidarSenha(tflogin.getText()).contains(tfsenha.getText())) {
+		 							if(ld.ValidarSenha(tflogin.getText()).contains(tfsenha.getText())) {
 		 							Usuario.setLoginUsuario(tflogin.getText());
 		 							ld.RetornarIdUsuario(tflogin.getText());
 		 							
@@ -111,7 +101,7 @@ public class LoginView extends JFrame {
 			}			
 		
 		});
-		btlogin.setBounds(148, 131, 89, 23);
+		btlogin.setBounds(175, 156, 89, 23);
 		contentPane.add(btlogin);
 		
 		JButton btnReset = new JButton("limpar");
@@ -124,11 +114,11 @@ public class LoginView extends JFrame {
 				
 			}
 		});
-		btnReset.setBounds(39, 131, 89, 23);
+		btnReset.setBounds(41, 156, 89, 23);
 		contentPane.add(btnReset);
 		
 		tfsenha = new JPasswordField();
-		tfsenha.setBounds(100, 83, 101, 23);
+		tfsenha.setBounds(100, 111, 230, 23);
 		contentPane.add(tfsenha);
 		
 		btnSair = new JButton("sair");
@@ -138,22 +128,18 @@ public class LoginView extends JFrame {
 		
 			}
 		});
-		btnSair.setBounds(97, 165, 89, 23);
+		btnSair.setBounds(293, 156, 89, 23);
 		contentPane.add(btnSair);
 		
 		JLabel lblLogin = new JLabel("Login:");
 		lblLogin.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
-		lblLogin.setBounds(26, 38, 80, 23);
+		lblLogin.setBounds(189, 11, 80, 23);
 		contentPane.add(lblLogin);
 		
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
-		lblSenha.setBounds(26, 84, 77, 17);
+		lblSenha.setBounds(187, 83, 77, 17);
 		contentPane.add(lblSenha);
-		
-
-		lblNewLabel.setBounds(-11, 0, 456, 217);
-		contentPane.add(lblNewLabel);
 	}
 
 	

@@ -9,16 +9,14 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 
 public class MenuView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textusuario;
 	private JButton btnCadastrarArvores;
 	
 	PropriedadeView p = new PropriedadeView();
+	private JTextField textusuario;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -39,7 +37,7 @@ public class MenuView extends JFrame {
 	public MenuView() {
 		setTitle("Menu");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(0, 0, 1367, 730);
+		setBounds(100, 100,  500, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -55,19 +53,11 @@ public class MenuView extends JFrame {
 				
 			}
 		});
-		btnUsuraios.setBounds(409, 330, 256, 67);
+		btnUsuraios.setBounds(121, 184, 256, 67);
 		contentPane.add(btnUsuraios);
 		
-	
-		textusuario = new JTextField();
-		textusuario.setText(Usuario.getLoginUsuario());
-		textusuario.setEditable(false);
-		textusuario.setBounds(1045, 28, 116, 30);
-		contentPane.add(textusuario);
-		textusuario.setColumns(10);
-		
 		JButton btnCadastrarPropriedade = new JButton("Cadastrar Propriedade");
-		btnCadastrarPropriedade.setBounds(409, 420, 256, 67);
+		btnCadastrarPropriedade.setBounds(121, 293, 256, 67);
 		btnCadastrarPropriedade.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
 
@@ -81,7 +71,7 @@ public class MenuView extends JFrame {
 		contentPane.add(btnCadastrarPropriedade);
 		
 		btnCadastrarArvores = new JButton("Cadastrar \u00C1rvores");
-		btnCadastrarArvores.setBounds(409, 508, 256, 67);
+		btnCadastrarArvores.setBounds(121, 409, 256, 67);
 		btnCadastrarArvores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ArvoreView frame = new ArvoreView();
@@ -91,6 +81,18 @@ public class MenuView extends JFrame {
 			}
 		});		
 		contentPane.add(btnCadastrarArvores);
+		
+		
+		textusuario = new JTextField();
+		textusuario.setText(Usuario.getLoginUsuario());
+		textusuario.setEditable(false);
+		textusuario.setBounds(1045, 28, 116, 30);
+		contentPane.add(textusuario);
+		textusuario.setColumns(10);
+		
+		
+		textusuario.setBounds(334, 34, 116, 30);
+		contentPane.add(textusuario);
 		
     
 		

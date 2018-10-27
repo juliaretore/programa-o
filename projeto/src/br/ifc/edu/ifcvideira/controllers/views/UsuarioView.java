@@ -13,6 +13,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 import javax.swing.JSeparator;
 import java.awt.Color;
 import javax.swing.JScrollPane;
@@ -82,12 +83,8 @@ public class UsuarioView extends JFrame {
 				limpar();
 			}
 		});
-		JLabel lblNewLabel = new JLabel("New label");
-		
-		ImageIcon img = new ImageIcon (lblNewLabel.getIcon().toString());  
-		lblNewLabel.setIcon(img);
-        img.setImage(img.getImage().getScaledInstance(500, 680, 100));
-        
+		JLabel lblNewLabel = new JLabel("New label");		
+
 		setTitle("Cadastro Usuario");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
