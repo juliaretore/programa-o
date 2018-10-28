@@ -20,12 +20,12 @@ public class MenuView extends JFrame {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			
+	
 			public void run() {
 				try {
 					MenuView frame = new MenuView();
 					frame.setVisible(true);
-
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -36,6 +36,7 @@ public class MenuView extends JFrame {
 
 	public MenuView() {
 		setTitle("Menu");
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100,  500, 700);
 		contentPane = new JPanel();

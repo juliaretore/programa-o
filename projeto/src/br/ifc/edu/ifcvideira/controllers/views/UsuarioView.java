@@ -13,7 +13,6 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import java.awt.SystemColor;
-import java.awt.Toolkit;
 import javax.swing.JSeparator;
 import java.awt.Color;
 import javax.swing.JScrollPane;
@@ -33,7 +32,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
-import javax.swing.ImageIcon;
 import java.awt.Font;
 
 public class UsuarioView extends JFrame {

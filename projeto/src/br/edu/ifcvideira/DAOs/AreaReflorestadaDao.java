@@ -55,5 +55,27 @@ public class AreaReflorestadaDao {
 	}
 		
 	
-
+	public List<Object> BuscarTodos() throws SQLException, Exception{
+		List<Object> area = new ArrayList<Object>();
+		try {
+			String sql = "SELECT * FROM areareflorestada";
+			java.sql.Statement state = Conexao.getInstance().createStatement();
+			ResultSet rs = state.executeQuery(sql);
+			
+			while (rs.next())
+			{
+				Object[] linha = {rs.getInt(1), rs.getFloat(2), rs.getFloat(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getInt(8)};
+				area.add(linha);
+				
+				
+				
+			}
+			state.close();
+			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		return area;
+	}
+		
 }

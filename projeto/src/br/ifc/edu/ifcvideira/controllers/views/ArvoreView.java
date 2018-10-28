@@ -2,15 +2,12 @@ package br.ifc.edu.ifcvideira.controllers.views;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.SystemColor;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,11 +26,8 @@ import javax.swing.event.CaretListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import javax.swing.text.MaskFormatter;
-
 import br.edu.ifcvideira.DAOs.ArvoreDao;
 import br.edu.ifcvideira.beans.Arvore;
-import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -47,13 +41,9 @@ public class ArvoreView extends JFrame {
 	private JTextField textPNome;
 	private JTextField textPCodigo;
 	private JTable table;
-
-	private List<Object> fornecedor = new ArrayList<Object>();
 	
 	Arvore a = new Arvore();	
 	ArvoreDao ad = new ArvoreDao();
-	
-	java.sql.Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
 	
 	
 	public JTextField textCodigo;
@@ -91,7 +81,7 @@ public class ArvoreView extends JFrame {
         
 
 
-		setTitle("Cadastro Fornecedores");
+		setTitle("Cadastro \u00C1rvore");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100,  500, 700);
@@ -117,13 +107,7 @@ public class ArvoreView extends JFrame {
 		Celular.setBounds(29, 155, 99, 20);
 		contentPane.add(Celular);
 		
-					try {
-						MaskFormatter mascara = new MaskFormatter("##.###.###/####-##");
-
-					} catch (ParseException e2) {
-						JOptionPane.showMessageDialog(null, "b");	
-						}
-		
+					
 		JButton alterar = new JButton("Alterar");
 		alterar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

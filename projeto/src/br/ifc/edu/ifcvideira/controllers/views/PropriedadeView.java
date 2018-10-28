@@ -2,13 +2,11 @@ package br.ifc.edu.ifcvideira.controllers.views;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.SystemColor;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -20,15 +18,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
-
 import br.edu.ifcvideira.DAOs.AreaReflorestadaDao;
 import br.edu.ifcvideira.DAOs.ArvoreDao;
 import br.edu.ifcvideira.DAOs.PropriedadeDao;
@@ -36,10 +28,8 @@ import br.edu.ifcvideira.beans.AreaReflorestada;
 import br.edu.ifcvideira.beans.Arvore;
 import br.edu.ifcvideira.beans.Propriedade;
 import br.edu.ifcvideira.beans.Usuario;
-
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import java.awt.Font;
 
 public class PropriedadeView extends JFrame {
@@ -67,7 +57,6 @@ public class PropriedadeView extends JFrame {
 	private JTextField textFieldEndereco;
 	private JTable table;
 	private JTable table_1;
-	private List<Object> produto = new ArrayList<Object>();
 	double valortotal =0;
 	private JTextField textFieldMetragem;
 	private JTextField textFieldCodigoPropriedade;
@@ -159,7 +148,7 @@ public class PropriedadeView extends JFrame {
 			}
 		});
 		sair.setBackground(SystemColor.controlHighlight);
-		sair.setBounds(195, 640, 117, 20);
+		sair.setBounds(307, 639, 117, 20);
 		contentPane.add(sair);
 
 		JLabel lblCodigo = new JLabel("Codigo:");
@@ -465,6 +454,19 @@ public class PropriedadeView extends JFrame {
 			separator.setForeground(Color.LIGHT_GRAY);
 			separator.setBounds(10, 362, 464, 2);
 			contentPane.add(separator);
+			
+			JButton btnPropriedadesCadastradas = new JButton("Propriedades Cadastradas");
+			btnPropriedadesCadastradas.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					
+					ProcurarPropriedadeView frame = new ProcurarPropriedadeView();
+					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
+				}
+			});
+			btnPropriedadesCadastradas.setBackground(SystemColor.controlHighlight);
+			btnPropriedadesCadastradas.setBounds(57, 639, 183, 21);
+			contentPane.add(btnPropriedadesCadastradas);
 		
 		
 	}

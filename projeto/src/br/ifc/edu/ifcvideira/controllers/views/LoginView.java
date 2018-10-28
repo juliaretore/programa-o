@@ -79,17 +79,18 @@ public class LoginView extends JFrame {
 							        Timer timer = new Timer(600, new ActionListener() {  
 							            public void actionPerformed(ActionEvent ev) {  
 							                dialog.dispose();  
-							            }  
-							        });  
+							            }});  
 							        timer.start();
 							        dialog.setVisible(true);
 							        timer.stop();
 									MenuView frame = new MenuView();
 									frame.setVisible(true);
-								dispose ();
+									frame.setLocationRelativeTo(null);
+									dispose ();
 										}else {
 											JOptionPane.showMessageDialog(null, "Login incorreto");
-										}									}else {
+										}
+		 							}else {
 										JOptionPane.showMessageDialog(null, "Login incorreto");
 									}
 								} catch (SQLException e) {					
