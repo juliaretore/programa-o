@@ -291,12 +291,24 @@ public class PropriedadeView extends JFrame {
 					float tamanhor;
 					tamanhop=Float.parseFloat(textFieldTamanhoP.getText());
 					tamanhor=Float.parseFloat(textFieldTamanhoR.getText());
-
-					if(tamanhor<(tamanhop/10)) {
+					
+					
+					//O tamanho do reflorestamento tem que ser maior de 10%, se não, a multa será 2.000 para área 
+			
+					if(tamanhor<(tamanhop/10)) {						
 						p.setMulta(2000);
+
 					}else {
 						p.setMulta(0);
 					}try {
+						
+						
+						
+						if(p.getMulta()!=0) {
+							JOptionPane.showMessageDialog(null, "Você tem uma multa de R$2.000,00!");
+						}
+						
+						
 						pd.CadastrarPropriedade(p);
 					} catch (Exception e1) {
 						e1.printStackTrace();}

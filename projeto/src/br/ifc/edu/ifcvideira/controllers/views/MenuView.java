@@ -2,6 +2,7 @@ package br.ifc.edu.ifcvideira.controllers.views;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import br.edu.ifcvideira.beans.Usuario;
@@ -17,6 +18,8 @@ public class MenuView extends JFrame {
 	
 	PropriedadeView p = new PropriedadeView();
 	private JTextField textusuario;
+	Usuario u = new Usuario();
+	private JButton deslogar;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -75,9 +78,16 @@ public class MenuView extends JFrame {
 		btnCadastrarArvores.setBounds(121, 409, 256, 67);
 		btnCadastrarArvores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ArvoreView frame = new ArvoreView();
-				frame.setVisible(true);
-				frame.setLocationRelativeTo(null);
+				
+
+				if(textusuario.getText().contains("admin")) {
+					ArvoreView frame = new ArvoreView();
+					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
+				}else {
+					JOptionPane.showMessageDialog(null, "Área Restrita");
+				}
+
 				
 			}
 		});		
@@ -94,6 +104,19 @@ public class MenuView extends JFrame {
 		
 		textusuario.setBounds(334, 34, 116, 30);
 		contentPane.add(textusuario);
+		
+		deslogar = new JButton("Deslogar");
+		deslogar.setBounds(344, 67, 89, 23);
+		contentPane.add(deslogar);
+		deslogar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LoginView frame = new LoginView();
+				frame.setVisible(true);
+				frame.setLocationRelativeTo(null);
+				dispose();
+			
+			}
+		});
 		
     
 		

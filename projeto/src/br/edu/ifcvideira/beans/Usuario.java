@@ -11,8 +11,6 @@ public class Usuario extends Pessoa {
 	public Usuario(){
 		
 	}
-	
-	
 
 
 	public String getrgUsuario() {
