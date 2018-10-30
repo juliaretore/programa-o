@@ -302,8 +302,6 @@ public class PropriedadeView extends JFrame {
 						p.setMulta(0);
 					}try {
 						
-						
-						
 						if(p.getMulta()!=0) {
 							JOptionPane.showMessageDialog(null, "Você tem uma multa de R$2.000,00!");
 						}
