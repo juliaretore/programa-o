@@ -293,11 +293,10 @@ public class PropriedadeView extends JFrame {
 					tamanhor=Float.parseFloat(textFieldTamanhoR.getText());
 					
 					
-					//O tamanho do reflorestamento tem que ser maior de 10%, se não, a multa será 2.000 para área 
-			
-					if(tamanhor<(tamanhop/10)) {						
+					//O tamanho do reflorestamento tem que ser maior de 10%, se não, a multa será 2.000.
+					if(tamanhor<(tamanhop/10)) {
+	
 						p.setMulta(2000);
-
 					}else {
 						p.setMulta(0);
 					}try {
@@ -328,7 +327,6 @@ public class PropriedadeView extends JFrame {
 					} catch (Exception e) {
 						JOptionPane.showMessageDialog(null, e.getMessage());
 					}
-	
 				}
 
 			
@@ -380,7 +378,7 @@ public class PropriedadeView extends JFrame {
 			JLabel lblTamanhoReflorestamento = new JLabel("Tamanho Reflorestamento:");
 			lblTamanhoReflorestamento.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblTamanhoReflorestamento.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
-			lblTamanhoReflorestamento.setBounds(178, 264, 222, 20);
+			lblTamanhoReflorestamento.setBounds(189, 264, 211, 20);
 			contentPane.add(lblTamanhoReflorestamento);
 			
 			textFieldTamanhoP = new JTextField();
@@ -425,7 +423,7 @@ public class PropriedadeView extends JFrame {
 			JLabel lblTipo_1 = new JLabel("Tipo:");
 			lblTipo_1.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblTipo_1.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
-			lblTipo_1.setBounds(142, 295, 222, 20);
+			lblTipo_1.setBounds(305, 295, 59, 20);
 			contentPane.add(lblTipo_1);
 			
 			JComboBox<String> comboBoxObjetivo = new JComboBox<String>();
@@ -445,7 +443,7 @@ public class PropriedadeView extends JFrame {
 			JLabel lblObjetivo = new JLabel("Objetivo:");
 			lblObjetivo.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblObjetivo.setFont(new Font("Segoe UI Symbol", Font.BOLD, 15));
-			lblObjetivo.setBounds(138, 328, 222, 20);
+			lblObjetivo.setBounds(259, 328, 101, 20);
 			contentPane.add(lblObjetivo);
 			
 			JLabel lblObservaes = new JLabel("Observa\u00E7\u00F5es:");
@@ -457,7 +455,7 @@ public class PropriedadeView extends JFrame {
 			JLabel lblrvoresPlantadas = new JLabel("\u00C1rvores Plantadas:");
 			lblrvoresPlantadas.setHorizontalAlignment(SwingConstants.RIGHT);
 			lblrvoresPlantadas.setFont(new Font("Segoe UI Symbol", Font.BOLD, 23));
-			lblrvoresPlantadas.setBounds(92, 369, 249, 40);
+			lblrvoresPlantadas.setBounds(123, 369, 218, 40);
 			contentPane.add(lblrvoresPlantadas);
 			
 			JSeparator separator = new JSeparator();

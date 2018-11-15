@@ -51,9 +51,17 @@ public class MenuView extends JFrame {
 		JButton btnUsuraios = new JButton("Cadastrar Usu\u00E1rio");
 		btnUsuraios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				UsuarioView frame = new UsuarioView();
-				frame.setVisible(true);
-				frame.setLocationRelativeTo(null);
+				
+				
+				
+				if(textusuario.getText().contains("admin")) {
+					UsuarioView frame = new UsuarioView();
+					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
+				}else {
+					JOptionPane.showMessageDialog(null, "Área Restrita");
+				}
+				
 				
 			}
 		});
