@@ -65,11 +65,11 @@ public class MenuView extends JFrame {
 				
 			}
 		});
-		btnUsuraios.setBounds(121, 184, 256, 67);
+		btnUsuraios.setBounds(121, 302, 256, 67);
 		contentPane.add(btnUsuraios);
 		
 		JButton btnCadastrarPropriedade = new JButton("Cadastrar Propriedade");
-		btnCadastrarPropriedade.setBounds(121, 293, 256, 67);
+		btnCadastrarPropriedade.setBounds(121, 190, 256, 67);
 		btnCadastrarPropriedade.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
 
@@ -83,7 +83,7 @@ public class MenuView extends JFrame {
 		contentPane.add(btnCadastrarPropriedade);
 		
 		btnCadastrarArvores = new JButton("Cadastrar \u00C1rvores");
-		btnCadastrarArvores.setBounds(121, 409, 256, 67);
+		btnCadastrarArvores.setBounds(121, 408, 256, 67);
 		btnCadastrarArvores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -116,6 +116,25 @@ public class MenuView extends JFrame {
 		deslogar = new JButton("Deslogar");
 		deslogar.setBounds(344, 67, 89, 23);
 		contentPane.add(deslogar);
+		
+		JButton multa = new JButton("Pagar Multa");
+		multa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(textusuario.getText().contains("admin")) {
+					PagamentoMultaView frame = new PagamentoMultaView();
+					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
+				}else {
+					JOptionPane.showMessageDialog(null, "Área Restrita");
+				}
+
+				
+			}
+		});	
+				
+				
+		multa.setBounds(121, 506, 256, 67);
+		contentPane.add(multa);
 		deslogar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoginView frame = new LoginView();
